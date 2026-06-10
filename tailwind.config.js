@@ -21,9 +21,9 @@ export default {
         xl2: '1.25rem',
       },
       boxShadow: {
-        soft: '0 4px 24px rgba(30,58,45,0.08)',
-        lift: '0 16px 48px rgba(30,58,45,0.13)',
-        gold: '0 4px 24px rgba(197,153,58,0.18)',
+        soft: '0 4px 24px rgba(82,108,70,0.07)',
+        lift: '0 16px 56px rgba(82,108,70,0.11)',
+        gold: '0 4px 24px rgba(196,156,68,0.20)',
       },
       keyframes: {
         fadeUp:    { '0%': { opacity: 0, transform: 'translateY(16px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },

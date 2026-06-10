@@ -53,9 +53,9 @@ export default function Navbar({ user, onLogin, onLogout }) {
             fetchpriority="high"
             className="h-11 w-11 object-contain"
           />
-          <span className="font-display text-[17px] font-semibold text-navy leading-none tracking-wide">
+          <span className="font-display text-[19px] font-bold text-navy leading-none italic">
             {t("hero.titulo", "Margarida").split(" ")[0]}
-            <span className="block text-[10px] font-sans font-semibold tracking-[0.22em] text-maroon mt-0.5 uppercase">
+            <span className="block text-[10px] font-sans font-bold tracking-[0.30em] text-maroon mt-0.5 uppercase not-italic">
               {t("hero.subtitulo", "Nail Artist")}
             </span>
           </span>

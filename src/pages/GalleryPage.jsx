@@ -15,7 +15,7 @@ export default function GalleryPage() {
           {t('galeria.label', 'Portfólio')}
         </span>
 
-        <h1 className="font-display text-[clamp(30px,4.5vw,52px)] font-semibold text-navy tracking-wide mb-3 leading-tight">
+        <h1 className="font-display text-[clamp(32px,4.5vw,56px)] font-bold text-navy mb-3 leading-tight italic">
           {t('galeria.titulo', 'Os meus trabalhos')}
         </h1>
 
@@ -49,7 +49,7 @@ export default function GalleryPage() {
                 <div
                   className="w-full h-full flex flex-col items-center justify-center gap-2 text-ink-faint"
                   style={{
-                    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(30,58,45,0.025) 14px, rgba(30,58,45,0.025) 28px)',
+                    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(82,108,70,0.025) 14px, rgba(82,108,70,0.025) 28px)',
                   }}
                   aria-label={`Fotografia ${i + 1} — em breve`}
                 >

@@ -29,7 +29,7 @@ export default function AboutPage() {
           <div
             className="aspect-[4/5] bg-paper rounded-xl2 border border-line relative overflow-hidden shadow-lift"
             style={{
-              backgroundImage: 'repeating-linear-gradient(135deg, transparent, transparent 16px, rgba(30,58,45,0.025) 16px, rgba(30,58,45,0.025) 32px)',
+              backgroundImage: 'repeating-linear-gradient(135deg, transparent, transparent 16px, rgba(82,108,70,0.025) 16px, rgba(82,108,70,0.025) 32px)',
             }}
           >
             <img
@@ -69,7 +69,7 @@ export default function AboutPage() {
             {t("sobre.label", "Nail Artist")}
           </span>
 
-          <h1 className="font-display text-[clamp(26px,4vw,42px)] font-semibold text-navy tracking-wide mb-2 leading-tight">
+          <h1 className="font-display text-[clamp(28px,4vw,48px)] font-bold text-navy mb-2 leading-tight italic">
             {t("sobre.titulo", "Olá, sou a Margarida")}
           </h1>
 

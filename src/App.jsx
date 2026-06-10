@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AuthProvider, useAuth } from "./AuthContext.jsx";
 import { CmsProvider, useCms } from "./context/CmsContext.jsx";
@@ -61,6 +61,12 @@ function Seo({ page, title, description, noindex = false }) {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 function Layout() {
   const { user, logout } = useAuth();
   const { loading } = useCms();
@@ -102,6 +108,7 @@ function Layout() {
 
   return (
     <>
+      <ScrollToTop />
       <Navbar user={user} onLogin={() => setShowAuth(true)} onLogout={handleLogout} />
 
       <div
@@ -150,6 +157,12 @@ function CmsLoading() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 function ProtectedDashboard() {
   const { user } = useAuth();
   if (!user) return <Navigate to="/" replace />;
@@ -161,7 +174,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<><ScrollToTop /><Layout /></>}>
         <Route path="/" element={<><Seo page="home" /><HomePage /></>} />
         <Route path="/portfolio" element={<><Seo page="gallery" /><GalleryPage /></>} />
         <Route path="/sobre" element={<><Seo page="about" /><AboutPage /></>} />

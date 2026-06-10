@@ -4,40 +4,41 @@
 @tailwind utilities;
 
 /* ══════════════════════════════════════════════════════════════
-   PALETA — Botânico Luxo · Verde Floresta + Dourado + Marfim
+   PALETA — Botanical Editorial · Sálvia + Ouro + Branco
+   Inspirada no logótipo: M preto bold + aro dourado + folhas sálvia
    Formato: canais R G B separados por espaço
    ══════════════════════════════════════════════════════════════ */
 :root {
-  /* Fundos — marfim quente, ivory */
-  --bg: 248 245 240; /* #F8F5F0 — fundo principal: marfim   */
-  --bg-alt: 241 237 230; /* #F1EDE6 — secções: um pouco mais fundo */
-  --surface: 255 252 248; /* #FFFCF8 — cards: branco quente        */
+  /* Fundos — quase branco, limpo e editorial (como o fundo do logótipo) */
+  --bg: 250 249 247;         /* #FAF9F7 — quase branco com calor     */
+  --bg-alt: 243 240 234;     /* #F3F0EA — secções, muito suave        */
+  --surface: 255 255 255;    /* #FFFFFF — cards: branco puro          */
 
-  /* Texto — quente escuro */
-  --ink: 28 24 20; /* #1C1814 — quase preto, tom quente     */
-  --ink-soft: 90 76 62; /* #5A4C3E — médio, castanho quente      */
-  --ink-faint: 152 138 122; /* #98 8A 7A — subtil, WCAG AA           */
+  /* Texto — preto editorial (como o M do logótipo) */
+  --ink: 12 10 8;            /* #0C0A08 — quase preto, quente         */
+  --ink-soft: 70 58 46;      /* #463A2E — médio, castanho quente      */
+  --ink-faint: 148 132 114;  /* #948472 — subtil, WCAG AA             */
 
-  /* Primário — Verde Floresta (headings, nav, accents) */
-  --primary: 30 58 45; /* #1E3A2D — verde floresta profundo     */
-  --primary-dk: 18 40 30; /* #12281E — hover mais fundo            */
-  --primary-lt: 48 88 64; /* #305840 — hover mais claro            */
+  /* Primário — Verde Sálvia (folhas do logótipo) */
+  --primary: 82 108 70;      /* #52 6C 46 — verde sálvia botânico     */
+  --primary-dk: 60 84 50;    /* #3C5432 — hover mais fundo            */
+  --primary-lt: 110 138 94;  /* #6E8A5E — hover mais claro            */
 
-  /* Dourado — CTAs, accent, highlights */
-  --red: 197 153 58; /* #C5993A — dourado antigo              */
-  --red-dk: 166 126 44; /* #A67E2C — hover mais fundo            */
-  --red-lt: 220 176 78; /* #DCB04E — hover mais claro            */
+  /* Dourado — aro do logótipo */
+  --red: 196 156 68;         /* #C49C44 — ouro quente                 */
+  --red-dk: 166 128 50;      /* #A68032 — hover mais fundo            */
+  --red-lt: 220 180 90;      /* #DCB45A — hover mais claro            */
 
-  /* Electric — estados activos, focus (mesmo dourado) */
-  --blue: 197 153 58;
-  --blue-dk: 166 126 44;
-  --blue-lt: 220 176 78;
+  /* Electric — estados activos, focus (mesmo ouro) */
+  --blue: 196 156 68;
+  --blue-dk: 166 128 50;
+  --blue-lt: 220 180 90;
 
-  /* Bordas */
-  --line: 152 138 122; /* castanho-bege neutro                  */
+  /* Bordas — delicadas */
+  --line: 198 188 174;       /* bege-acinzentado neutro               */
 
   /* Muted */
-  --silver: 228 220 208; /* bege claro muted                      */
+  --silver: 228 220 208;     /* bege claro muted                      */
 
   --radius: 16px;
 }
@@ -107,7 +108,7 @@ body {
 .spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(30, 58, 45, 0.2);
+  border: 2px solid rgba(82, 108, 70, 0.2);
   border-top-color: rgb(var(--primary));
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
@@ -193,32 +194,31 @@ body {
 }
 
 /* ── Padrão decorativo botânico ─────────────────────────────── */
-/* Painel esquerdo do hero — atmosfera suave e elegante       */
-/* Camadas: brilhos radiais difusos (dourado + verde) sobre   */
-/* uma textura ténue de pontos finos, sem arestas geométricas. */
+/* Painel esquerdo do hero — brilhos difusos sobre pontilhado  */
+/* muito ténue. Cores alinhadas com o logótipo: ouro + sálvia. */
 .leaf-grid {
   background-image:
     radial-gradient(
       closest-side at 18% 22%,
-      rgba(197, 153, 58, 0.1),
-      transparent 70%
+      rgba(196, 156, 68, 0.07),
+      transparent 65%
     ),
     radial-gradient(
-      closest-side at 86% 78%,
-      rgba(30, 58, 45, 0.08),
-      transparent 70%
+      closest-side at 88% 80%,
+      rgba(82, 108, 70, 0.05),
+      transparent 65%
     ),
     radial-gradient(
-      closest-side at 70% 12%,
-      rgba(197, 153, 58, 0.06),
-      transparent 75%
+      closest-side at 65% 8%,
+      rgba(196, 156, 68, 0.045),
+      transparent 72%
     ),
-    radial-gradient(rgba(30, 58, 45, 0.05) 1px, transparent 1.4px);
+    radial-gradient(rgba(82, 108, 70, 0.035) 1px, transparent 1.2px);
   background-size:
     140% 120%,
     120% 130%,
     90% 90%,
-    26px 26px;
+    24px 24px;
   background-position:
     0 0,
     100% 100%,
@@ -241,10 +241,10 @@ body {
 .gold-text {
   background: linear-gradient(
     135deg,
-    #a67e2c 0%,
-    #dcb04e 40%,
-    #c5993a 60%,
-    #a67e2c 100%
+    #a68032 0%,
+    #dcb45a 40%,
+    #c49c44 60%,
+    #a68032 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;

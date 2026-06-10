@@ -20,38 +20,59 @@ const PhoneIcon = () => (
   </svg>
 );
 
-/* Folha SVG decorativa inline */
+/* Ramo botânico decorativo — inspirado nas folhas do logótipo */
 const LeafDecoration = () => (
   <svg
     aria-hidden="true"
-    viewBox="0 0 200 340"
+    viewBox="0 0 160 400"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="absolute right-0 top-1/2 -translate-y-1/2 w-32 lg:w-44 opacity-[0.055] pointer-events-none select-none"
+    className="absolute right-0 top-1/2 -translate-y-1/2 w-28 lg:w-38 opacity-[0.08] pointer-events-none select-none"
   >
-    <path d="M100 10 C140 40, 190 80, 180 160 C170 240, 120 300, 100 330 C80 300, 30 240, 20 160 C10 80, 60 40, 100 10Z"
-      fill="rgb(30,58,45)" />
-    <line x1="100" y1="10" x2="100" y2="330" stroke="rgb(30,58,45)" strokeWidth="1.5" opacity="0.6"/>
-    {[60,90,120,150,180,210,240,270].map((y, i) => (
-      <line key={i}
-        x1="100" y1={y}
-        x2={i % 2 === 0 ? 145 : 55} y2={y + 22}
-        stroke="rgb(30,58,45)" strokeWidth="1" opacity="0.5"
-      />
-    ))}
+    {/* Caule principal */}
+    <path d="M80 390 C79 300, 81 170, 80 12" stroke="rgb(82,108,70)" strokeWidth="1.8" strokeLinecap="round"/>
+    {/* Folhas direita */}
+    <path d="M80 68 C110 46, 154 60, 146 90 C138 120, 90 106, 80 68Z" fill="rgb(82,108,70)"/>
+    <path d="M80 148 C114 124, 156 140, 148 172 C140 204, 92 188, 80 148Z" fill="rgb(82,108,70)"/>
+    <path d="M80 232 C116 208, 158 226, 150 260 C142 294, 94 276, 80 232Z" fill="rgb(82,108,70)"/>
+    <path d="M80 315 C112 292, 152 308, 144 340 C136 372, 90 356, 80 315Z" fill="rgb(82,108,70)"/>
+    {/* Folhas esquerda */}
+    <path d="M80 106 C46 82, 4 98, 12 130 C20 162, 76 146, 80 106Z" fill="rgb(82,108,70)"/>
+    <path d="M80 188 C42 164, 2 182, 10 216 C18 250, 76 232, 80 188Z" fill="rgb(82,108,70)"/>
+    <path d="M80 272 C40 248, 0 268, 8 304 C16 340, 76 320, 80 272Z" fill="rgb(82,108,70)"/>
+    {/* Nervuras direita */}
+    <line x1="80" y1="68" x2="146" y2="90" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    <line x1="80" y1="148" x2="148" y2="172" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    <line x1="80" y1="232" x2="150" y2="260" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    <line x1="80" y1="315" x2="144" y2="340" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    {/* Nervuras esquerda */}
+    <line x1="80" y1="106" x2="12" y2="130" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    <line x1="80" y1="188" x2="10" y2="216" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    <line x1="80" y1="272" x2="8" y2="304" stroke="rgb(82,108,70)" strokeWidth="0.7" opacity="0.35"/>
+    {/* Flor de ouro no topo — como as flores brancas do logótipo */}
+    <circle cx="80" cy="12" r="5" fill="rgb(196,156,68)" opacity="0.75"/>
+    <circle cx="71" cy="18" r="3" fill="rgb(196,156,68)" opacity="0.45"/>
+    <circle cx="89" cy="18" r="3" fill="rgb(196,156,68)" opacity="0.45"/>
+    <circle cx="80" cy="24" r="2" fill="rgb(196,156,68)" opacity="0.25"/>
   </svg>
 );
 
-/* Ornamento floral de canto */
+/* Ornamento de canto — aro dourado com folhas, eco do logótipo */
 const CornerOrnament = () => (
-  <svg aria-hidden="true" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
-    className="absolute top-4 left-4 w-16 h-16 opacity-[0.07] pointer-events-none select-none">
-    <circle cx="8" cy="8" r="3" fill="rgb(197,153,58)" />
-    <path d="M8 8 Q40 8 40 40" stroke="rgb(197,153,58)" strokeWidth="1.2" fill="none"/>
-    <path d="M8 8 Q8 40 40 40" stroke="rgb(197,153,58)" strokeWidth="1.2" fill="none"/>
-    <circle cx="40" cy="40" r="4" fill="rgb(197,153,58)" />
-    <circle cx="24" cy="8" r="2" fill="rgb(197,153,58)" opacity="0.6"/>
-    <circle cx="8" cy="24" r="2" fill="rgb(197,153,58)" opacity="0.6"/>
+  <svg aria-hidden="true" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+    className="absolute top-4 left-4 w-20 h-20 opacity-[0.09] pointer-events-none select-none">
+    {/* Arcos dourados */}
+    <path d="M8 8 Q56 8 56 56" stroke="rgb(196,156,68)" strokeWidth="1" fill="none"/>
+    <path d="M8 8 Q8 56 56 56" stroke="rgb(196,156,68)" strokeWidth="1" fill="none"/>
+    {/* Folhas na origem */}
+    <path d="M8 8 C18 -3, 33 3, 28 16 C23 29, 5 20, 8 8Z" fill="rgb(82,108,70)"/>
+    <path d="M8 8 C-3 18, 3 33, 16 28 C29 23, 20 5, 8 8Z" fill="rgb(82,108,70)"/>
+    {/* Folhinhas ao longo do aro */}
+    <path d="M34 10 C40 3, 52 7, 49 17 C46 27, 32 22, 34 10Z" fill="rgb(82,108,70)" opacity="0.55"/>
+    <path d="M10 34 C3 40, 7 52, 17 49 C27 46, 22 32, 10 34Z" fill="rgb(82,108,70)" opacity="0.55"/>
+    {/* Ponto dourado na origem e no fim */}
+    <circle cx="8" cy="8" r="3" fill="rgb(196,156,68)" opacity="0.9"/>
+    <circle cx="56" cy="56" r="4" fill="rgb(196,156,68)" opacity="0.55"/>
   </svg>
 );
 
@@ -118,10 +139,10 @@ export default function HomePage() {
                 className="h-[88px] w-[88px] object-contain shrink-0 drop-shadow-sm"
               />
               <div>
-                <h1 className="font-display text-[clamp(36px,5vw,60px)] font-semibold leading-[1] tracking-wide text-navy">
+                <h1 className="font-display text-[clamp(40px,5.5vw,66px)] font-bold leading-[1] tracking-tight text-navy italic">
                   {t("hero.titulo", "Margarida").split(" ")[0]}
                 </h1>
-                <p className="text-[clamp(11px,1.2vw,13px)] font-semibold tracking-[0.28em] uppercase text-maroon mt-1">
+                <p className="text-[clamp(10px,1.1vw,12px)] font-bold tracking-[0.36em] uppercase text-maroon mt-2 not-italic">
                   {t("hero.subtitulo", "Nail Artist")}
                 </p>
               </div>
@@ -216,9 +237,9 @@ export default function HomePage() {
           {/* Decoração subtil de fundo */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 opacity-40 pointer-events-none"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(197,153,58,0.08) 0%, transparent 60%), radial-gradient(circle at 20% 80%, rgba(30,58,45,0.06) 0%, transparent 60%)',
+              backgroundImage: 'radial-gradient(circle at 75% 15%, rgba(196,156,68,0.07) 0%, transparent 55%), radial-gradient(circle at 25% 85%, rgba(82,108,70,0.05) 0%, transparent 55%)',
             }}
           />
 

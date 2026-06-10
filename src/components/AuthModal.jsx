@@ -1,0 +1,238 @@
+import { useState } from 'react'
+import { useAuth } from '../AuthContext.jsx'
+import { Button, Spinner, Modal, Label, Input } from './ui.jsx'
+import {
+  loginFormSchema,
+  registerFormSchema,
+  forgotFormSchema,
+  resetFormSchema,
+  firstZodError,
+} from '../lib/formSchemas.ts'
+
+const GoogleIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+  </svg>
+)
+
+const TITLES = {
+  login:    'Bem-vinda de volta',
+  register: 'Criar conta',
+  forgot:   'Recuperar palavra-passe',
+  reset:    'Nova palavra-passe',
+}
+
+export default function AuthModal({ onClose, onSuccess, initialMode = 'login', resetToken = null }) {
+  const { login, register, forgotPassword, resetPassword } = useAuth()
+  const [mode, setMode] = useState(resetToken ? 'reset' : initialMode)
+  const [form, setForm] = useState({ name: '', email: '', phone: '', password: '', newPassword: '', confirmPassword: '' })
+  const [err, setErr] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [forgotSent, setForgotSent] = useState(false)
+  const [resetDone, setResetDone] = useState(false)
+
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+
+  function switchMode(m) {
+    setMode(m); setErr(''); setForgotSent(false); setResetDone(false)
+  }
+
+  async function submit(e) {
+    e.preventDefault(); setErr('')
+
+    if (mode === 'login') {
+      const r = loginFormSchema.safeParse({ email: form.email, password: form.password })
+      if (!r.success) { setErr(firstZodError(r.error)); return }
+    } else if (mode === 'register') {
+      const r = registerFormSchema.safeParse({ name: form.name, email: form.email, phone: form.phone, password: form.password })
+      if (!r.success) { setErr(firstZodError(r.error)); return }
+    } else if (mode === 'forgot') {
+      const r = forgotFormSchema.safeParse({ email: form.email })
+      if (!r.success) { setErr(firstZodError(r.error)); return }
+    } else if (mode === 'reset') {
+      const r = resetFormSchema.safeParse({ newPassword: form.newPassword, confirmPassword: form.confirmPassword })
+      if (!r.success) { setErr(firstZodError(r.error)); return }
+    }
+
+    setLoading(true)
+    try {
+      if (mode === 'login') {
+        const u = await login(form.email, form.password); onSuccess(u)
+      } else if (mode === 'register') {
+        const u = await register(form.name, form.email, form.phone, form.password); onSuccess(u)
+      } else if (mode === 'forgot') {
+        await forgotPassword(form.email); setForgotSent(true)
+      } else if (mode === 'reset') {
+        await resetPassword(resetToken, form.newPassword); setResetDone(true)
+      }
+    } catch (e) {
+      const status = e?.response?.status
+      const serverMsg = e?.response?.data?.message
+      if (status === 401) setErr('Email ou palavra-passe incorretos.')
+      else if (status === 400) setErr(serverMsg || 'Token inválido ou expirado. Pede um novo link.')
+      else if (status === 409) setErr('Este email já está registado. Tenta entrar.')
+      else if (status === 422) setErr(serverMsg || 'Dados inválidos. Verifica os campos.')
+      else if (serverMsg) setErr(serverMsg)
+      else setErr(e.message || 'Ocorreu um erro. Tenta novamente.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const errBlock = err && (
+    <div id="auth-error" role="alert" aria-live="assertive"
+      className="bg-maroon/[0.08] border border-maroon/25 rounded-[10px] px-3.5 py-2.5 text-maroon text-[13px]">
+      {err}
+    </div>
+  )
+
+  return (
+    <Modal title={TITLES[mode]} onClose={onClose}>
+
+      {mode === 'login' && (
+        <>
+          <Button variant="surface" disabled className="w-full opacity-50 cursor-not-allowed" aria-disabled="true">
+            <GoogleIcon /> Continuar com Google (brevemente)
+          </Button>
+          <div aria-hidden="true" className="flex items-center gap-3 text-[11px] tracking-wider uppercase text-ink-faint font-semibold my-4">
+            <span className="flex-1 h-px bg-line" /> ou <span className="flex-1 h-px bg-line" />
+          </div>
+          <form onSubmit={submit} className="flex flex-col gap-3.5" noValidate aria-describedby={err ? 'auth-error' : undefined}>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="auth-email">Email *</Label>
+              <Input id="auth-email" type="email" placeholder="email@exemplo.com" value={form.email}
+                onChange={(e) => set('email', e.target.value)} required autoComplete="email" />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="auth-password">Palavra-passe *</Label>
+                <button type="button" onClick={() => switchMode('forgot')}
+                  className="text-[11px] text-ink-faint hover:text-navy underline">Esqueceste?</button>
+              </div>
+              <Input id="auth-password" type="password" placeholder="••••••••" value={form.password}
+                onChange={(e) => set('password', e.target.value)} required autoComplete="current-password" />
+            </div>
+            {errBlock}
+            <Button variant="primary" type="submit" disabled={loading} aria-busy={loading} className="w-full mt-1">
+              {loading ? <><Spinner light /> A processar…</> : 'Entrar'}
+            </Button>
+          </form>
+          <div className="text-center mt-4 text-[13px] text-ink-soft">
+            Sem conta?{' '}
+            <button onClick={() => switchMode('register')} className="text-navy font-semibold underline">Regista-te</button>
+          </div>
+        </>
+      )}
+
+      {mode === 'register' && (
+        <>
+          <Button variant="surface" disabled className="w-full opacity-50 cursor-not-allowed" aria-disabled="true">
+            <GoogleIcon /> Continuar com Google (brevemente)
+          </Button>
+          <div aria-hidden="true" className="flex items-center gap-3 text-[11px] tracking-wider uppercase text-ink-faint font-semibold my-4">
+            <span className="flex-1 h-px bg-line" /> ou <span className="flex-1 h-px bg-line" />
+          </div>
+          <form onSubmit={submit} className="flex flex-col gap-3.5" noValidate>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="auth-name">Nome completo *</Label>
+              <Input id="auth-name" type="text" placeholder="O teu nome" value={form.name}
+                onChange={(e) => set('name', e.target.value)} required autoComplete="name" />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="auth-phone">Telemóvel</Label>
+              <Input id="auth-phone" type="tel" placeholder="+351 9XX XXX XXX" value={form.phone}
+                onChange={(e) => set('phone', e.target.value)} autoComplete="tel" />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="auth-email">Email *</Label>
+              <Input id="auth-email" type="email" placeholder="email@exemplo.com" value={form.email}
+                onChange={(e) => set('email', e.target.value)} required autoComplete="email" />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="auth-password">Palavra-passe *</Label>
+              <Input id="auth-password" type="password" placeholder="••••••••" value={form.password}
+                onChange={(e) => set('password', e.target.value)} required autoComplete="new-password" />
+            </div>
+            {errBlock}
+            <Button variant="primary" type="submit" disabled={loading} aria-busy={loading} className="w-full mt-1">
+              {loading ? <><Spinner light /> A processar…</> : 'Criar conta'}
+            </Button>
+          </form>
+          <div className="text-center mt-4 text-[13px] text-ink-soft">
+            Já tens conta?{' '}
+            <button onClick={() => switchMode('login')} className="text-navy font-semibold underline">Entra</button>
+          </div>
+        </>
+      )}
+
+      {mode === 'forgot' && (
+        <>
+          {forgotSent ? (
+            <div className="text-center py-4">
+              <div className="w-14 h-14 rounded-2xl mx-auto mb-4 bg-maroon/10 border border-maroon/25 flex items-center justify-center text-2xl">✉️</div>
+              <p className="text-ink font-semibold mb-2">Email enviado!</p>
+              <p className="text-ink-soft text-[13px] leading-relaxed mb-5">
+                Se o email existir, receberás um link para redefinir a palavra-passe. Verifica também o spam.
+              </p>
+              <Button variant="ghost" size="sm" onClick={() => switchMode('login')}>Voltar ao login</Button>
+            </div>
+          ) : (
+            <>
+              <p className="text-ink-soft text-[13px] mb-4 leading-relaxed">Introduz o teu email e enviamos um link para redefinires a palavra-passe.</p>
+              <form onSubmit={submit} className="flex flex-col gap-3.5" noValidate>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="forgot-email">Email *</Label>
+                  <Input id="forgot-email" type="email" placeholder="email@exemplo.com" value={form.email}
+                    onChange={(e) => set('email', e.target.value)} required autoComplete="email" />
+                </div>
+                {errBlock}
+                <Button variant="primary" type="submit" disabled={loading} aria-busy={loading} className="w-full">
+                  {loading ? <><Spinner light /> A enviar…</> : 'Enviar link'}
+                </Button>
+              </form>
+              <div className="text-center mt-4 text-[13px] text-ink-soft">
+                <button onClick={() => switchMode('login')} className="text-navy font-semibold underline">← Voltar ao login</button>
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      {mode === 'reset' && (
+        <>
+          {resetDone ? (
+            <div className="text-center py-4">
+              <div className="w-14 h-14 rounded-2xl mx-auto mb-4 bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl text-emerald-600">✓</div>
+              <p className="text-ink font-semibold mb-2">Palavra-passe alterada!</p>
+              <p className="text-ink-soft text-[13px] leading-relaxed mb-5">Já podes entrar com a tua nova palavra-passe.</p>
+              <Button variant="primary" size="sm" onClick={() => switchMode('login')}>Entrar</Button>
+            </div>
+          ) : (
+            <>
+              <p className="text-ink-soft text-[13px] mb-4 leading-relaxed">Escolhe uma nova palavra-passe com pelo menos 8 caracteres.</p>
+              <form onSubmit={submit} className="flex flex-col gap-3.5" noValidate>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="reset-password">Nova palavra-passe *</Label>
+                  <Input id="reset-password" type="password" placeholder="Mínimo 8 caracteres" value={form.newPassword}
+                    onChange={(e) => set('newPassword', e.target.value)} required autoComplete="new-password" />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="reset-confirm">Confirmar palavra-passe *</Label>
+                  <Input id="reset-confirm" type="password" placeholder="Repete a nova palavra-passe" value={form.confirmPassword}
+                    onChange={(e) => set('confirmPassword', e.target.value)} required autoComplete="new-password" />
+                </div>
+                {errBlock}
+                <Button variant="primary" type="submit" disabled={loading} aria-busy={loading} className="w-full">
+                  {loading ? <><Spinner light /> A guardar…</> : 'Guardar nova palavra-passe'}
+                </Button>
+              </form>
+            </>
+          )}
+        </>
+      )}
+    </Modal>
+  )
+}

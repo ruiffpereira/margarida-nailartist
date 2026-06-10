@@ -1,0 +1,304 @@
+@import "react-day-picker/style.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════════
+   PALETA — Botânico Luxo · Verde Floresta + Dourado + Marfim
+   Formato: canais R G B separados por espaço
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Fundos — marfim quente, ivory */
+  --bg: 248 245 240; /* #F8F5F0 — fundo principal: marfim   */
+  --bg-alt: 241 237 230; /* #F1EDE6 — secções: um pouco mais fundo */
+  --surface: 255 252 248; /* #FFFCF8 — cards: branco quente        */
+
+  /* Texto — quente escuro */
+  --ink: 28 24 20; /* #1C1814 — quase preto, tom quente     */
+  --ink-soft: 90 76 62; /* #5A4C3E — médio, castanho quente      */
+  --ink-faint: 152 138 122; /* #98 8A 7A — subtil, WCAG AA           */
+
+  /* Primário — Verde Floresta (headings, nav, accents) */
+  --primary: 30 58 45; /* #1E3A2D — verde floresta profundo     */
+  --primary-dk: 18 40 30; /* #12281E — hover mais fundo            */
+  --primary-lt: 48 88 64; /* #305840 — hover mais claro            */
+
+  /* Dourado — CTAs, accent, highlights */
+  --red: 197 153 58; /* #C5993A — dourado antigo              */
+  --red-dk: 166 126 44; /* #A67E2C — hover mais fundo            */
+  --red-lt: 220 176 78; /* #DCB04E — hover mais claro            */
+
+  /* Electric — estados activos, focus (mesmo dourado) */
+  --blue: 197 153 58;
+  --blue-dk: 166 126 44;
+  --blue-lt: 220 176 78;
+
+  /* Bordas */
+  --line: 152 138 122; /* castanho-bege neutro                  */
+
+  /* Muted */
+  --silver: 228 220 208; /* bege claro muted                      */
+
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--red));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 8px;
+  z-index: 99999;
+  padding: 8px 18px;
+  background: rgb(var(--primary));
+  color: rgb(var(--bg));
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--silver));
+  border-radius: 99px;
+}
+
+/* Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(30, 58, 45, 0.2);
+  border-top-color: rgb(var(--primary));
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+.spinner-dark {
+  border-color: rgb(var(--primary) / 0.15);
+  border-top-color: rgb(var(--primary));
+}
+.spinner-light {
+  border-color: rgba(255, 252, 248, 0.25);
+  border-top-color: rgb(var(--surface));
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── react-day-picker — tema claro botânico ──────────────────── */
+.rdp-root {
+  --rdp-accent-color: rgb(var(--red));
+  --rdp-accent-background-color: rgb(var(--red) / 0.1);
+  --rdp-today-color: rgb(var(--primary));
+  --rdp-day_button-border-radius: 8px;
+  --rdp-day-height: 38px;
+  --rdp-day-width: 38px;
+  --rdp-day_button-height: 36px;
+  --rdp-day_button-width: 36px;
+  --rdp-nav_button-height: 2rem;
+  --rdp-nav_button-width: 2rem;
+  color: rgb(var(--ink));
+  font-family: inherit;
+}
+.rdp-root .rdp-button_previous,
+.rdp-root .rdp-button_next {
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--line) / 0.14);
+  border-radius: 8px;
+  color: rgb(var(--ink-soft));
+}
+.rdp-root .rdp-button_previous:hover,
+.rdp-root .rdp-button_next:hover {
+  background: rgb(var(--bg-alt));
+  color: rgb(var(--primary));
+}
+.rdp-root .rdp-day_button {
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(var(--ink));
+}
+.rdp-root .rdp-day_button:hover:not(:disabled) {
+  background: rgb(var(--bg-alt));
+}
+.rdp-root .rdp-outside .rdp-day_button {
+  color: rgb(var(--ink-faint));
+}
+.rdp-root .rdp-weekday {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgb(var(--ink-faint));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.rdp-root .rdp-caption_label {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(var(--primary));
+}
+.rdp-root,
+.rdp-root .rdp-months,
+.rdp-root .rdp-month,
+.rdp-root .rdp-month_grid {
+  width: 280px;
+}
+
+/* Espaço para o bottom nav mobile */
+@media (max-width: 1023px) {
+  main {
+    padding-bottom: 4rem;
+  }
+}
+
+/* ── Padrão decorativo botânico ─────────────────────────────── */
+/* Painel esquerdo do hero — atmosfera suave e elegante       */
+/* Camadas: brilhos radiais difusos (dourado + verde) sobre   */
+/* uma textura ténue de pontos finos, sem arestas geométricas. */
+.leaf-grid {
+  background-image:
+    radial-gradient(
+      closest-side at 18% 22%,
+      rgba(197, 153, 58, 0.1),
+      transparent 70%
+    ),
+    radial-gradient(
+      closest-side at 86% 78%,
+      rgba(30, 58, 45, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      closest-side at 70% 12%,
+      rgba(197, 153, 58, 0.06),
+      transparent 75%
+    ),
+    radial-gradient(rgba(30, 58, 45, 0.05) 1px, transparent 1.4px);
+  background-size:
+    140% 120%,
+    120% 130%,
+    90% 90%,
+    26px 26px;
+  background-position:
+    0 0,
+    100% 100%,
+    50% 0,
+    0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  -webkit-mask-image: radial-gradient(
+    120% 100% at 30% 40%,
+    black 55%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    120% 100% at 30% 40%,
+    black 55%,
+    transparent 100%
+  );
+}
+
+/* Texto dourado com gradiente — para headings de destaque */
+.gold-text {
+  background: linear-gradient(
+    135deg,
+    #a67e2c 0%,
+    #dcb04e 40%,
+    #c5993a 60%,
+    #a67e2c 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Linha decorativa dourada */
+.gold-rule {
+  display: inline-block;
+  width: 48px;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgb(var(--red)), rgb(var(--red-lt)));
+  border-radius: 999px;
+}
+
+/* Badge de destaque — verde floresta */
+.forest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgb(var(--primary) / 0.07);
+  border: 1px solid rgb(var(--primary) / 0.18);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--primary));
+}
+
+/* Badge dourado */
+.gold-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgb(var(--red) / 0.08);
+  border: 1px solid rgb(var(--red) / 0.22);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--red-dk));
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}

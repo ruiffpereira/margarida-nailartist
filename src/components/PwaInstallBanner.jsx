@@ -37,7 +37,7 @@ export default function PwaInstallBanner() {
       <div className="bg-navy text-paper rounded-2xl shadow-soft px-5 py-4 w-full max-w-sm pointer-events-auto border border-navy/20">
         <div className="flex items-center gap-3">
           <img
-            src={t("hero.logo", "/logo.png")}
+            src={t("hero.logo")}
             alt="Margarida Nail Artist"
             width="40" height="40"
             loading="lazy" decoding="async"

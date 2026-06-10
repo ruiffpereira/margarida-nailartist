@@ -16,32 +16,17 @@ import PwaInstallBanner from "./components/PwaInstallBanner.jsx";
 const SITE_URL = "https://margarida-nails.pt";
 const SHARE_IMAGE = `${SITE_URL}/pwa-512x512.png`;
 
-const SEO = {
-  home: {
-    path: "/",
-    title: "Margarida Nail Artist",
-    description:
-      "Manicure, pedicure, gel, nail art e extensões de unhas. Marca a tua visita online em segundos, sem chamadas.",
-  },
-  gallery: {
-    path: "/portfolio",
-    title: "Portfólio — Margarida Nail Artist",
-    description:
-      "Vê os trabalhos de nail art, designs, gel e extensões da Margarida Nail Artist.",
-  },
-  about: {
-    path: "/sobre",
-    title: "Sobre — Margarida Nail Artist",
-    description:
-      "Conhece a Margarida Nail Artist: cuidado, precisão e arte em cada unha.",
-  },
+const PAGE_PATHS = {
+  home: "/",
+  gallery: "/portfolio",
+  about: "/sobre",
 };
 
-function Seo({ page, title, description, noindex = false }) {
-  const data = page ? SEO[page] : null;
-  const seoTitle = title ?? data?.title;
-  const seoDescription = description ?? data?.description;
-  const canonical = data ? `${SITE_URL}${data.path}` : null;
+function Seo({ page, titleKey = "seo.titulo", descriptionKey = "seo.descricao", noindex = false }) {
+  const { t } = useCms();
+  const seoTitle = titleKey ? t(titleKey) : "";
+  const seoDescription = descriptionKey ? t(descriptionKey) : "";
+  const canonical = page ? `${SITE_URL}${PAGE_PATHS[page]}` : null;
 
   return (
     <Helmet>
@@ -182,8 +167,6 @@ function ProtectedDashboard() {
 }
 
 function AppRoutes() {
-  const { t } = useCms();
-
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -194,16 +177,16 @@ function AppRoutes() {
           path="/dashboard"
           element={
             <>
-              <Seo title={["A minha conta", t("hero.titulo")].filter(Boolean).join(" — ")} noindex />
+              <Seo titleKey="hero.titulo" descriptionKey="" noindex />
               <ProtectedDashboard />
             </>
           }
         />
-        <Route path="/reset-password" element={<><Seo title={SEO.home.title} noindex /><HomePage /></>} />
+        <Route path="/reset-password" element={<><Seo noindex /><HomePage /></>} />
       </Route>
       <Route
         path="/cancelar/:token"
-        element={<><Seo title="Cancelar marcação — Margarida Nail Artist" noindex /><CancelPage /></>}
+        element={<><Seo noindex /><CancelPage /></>}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

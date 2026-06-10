@@ -4,12 +4,12 @@ export default function AboutPage() {
   const { t } = useCms();
 
   const especialidades = [
-    t("sobre.especialidade.1", "Manicure"),
-    t("sobre.especialidade.2", "Pedicure"),
-    t("sobre.especialidade.3", "Gel & Shellac"),
-    t("sobre.especialidade.4", "Nail Art"),
-    t("sobre.especialidade.5", "Extensões"),
-    t("sobre.especialidade.6", "Spa de Mãos"),
+    t("sobre.especialidade.1"),
+    t("sobre.especialidade.2"),
+    t("sobre.especialidade.3"),
+    t("sobre.especialidade.4"),
+    t("sobre.especialidade.5"),
+    t("sobre.especialidade.6"),
   ].filter(Boolean);
 
   return (
@@ -34,7 +34,7 @@ export default function AboutPage() {
           >
             <img
               src={t("sobre.foto")}
-              alt={t("hero.titulo", "Margarida")}
+              alt={t("hero.titulo")}
               width="800"
               height="1000"
               loading="eager"
@@ -48,8 +48,8 @@ export default function AboutPage() {
             />
             <div style={{ display: "none" }} className="flex flex-col items-center justify-center gap-3 absolute inset-0">
               <img
-                src={t("hero.logo", "/logo.png")}
-                alt={t("hero.titulo", "Margarida")}
+                src={t("hero.logo")}
+                alt={t("hero.titulo")}
                 width="128"
                 height="128"
                 loading="lazy"
@@ -66,11 +66,11 @@ export default function AboutPage() {
         {/* Texto */}
         <article>
           <span aria-hidden="true" className="forest-badge mb-4 inline-flex">
-            {t("sobre.label", "Nail Artist")}
+            {t("sobre.label")}
           </span>
 
           <h1 className="font-display text-[clamp(28px,4vw,48px)] font-bold text-navy mb-2 leading-tight italic">
-            {t("sobre.titulo", "Olá, sou a Margarida")}
+            {t("sobre.titulo")}
           </h1>
 
           <div className="flex items-center gap-3 mb-5">
@@ -78,10 +78,10 @@ export default function AboutPage() {
           </div>
 
           <p className="text-ink-soft text-[15px] leading-relaxed mb-3.5">
-            {t("sobre.corpo1", "Nail artist apaixonada pela arte e pelo cuidado das unhas. Cada detalhe conta — da escolha da cor ao acabamento final.")}
+            {t("sobre.corpo1")}
           </p>
           <p className="text-ink-soft text-[15px] leading-relaxed mb-7">
-            {t("sobre.corpo2", "Com anos de experiência em manicure, pedicure, gel e nail art, o meu objectivo é que saias sempre com um sorriso e umas unhas perfeitas.")}
+            {t("sobre.corpo2")}
           </p>
 
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-ink-faint mb-3">

@@ -39,12 +39,12 @@ export default function Navbar({ user, onLogin, onLogout }) {
         {/* Logo */}
         <button
           onClick={() => go("/")}
-          aria-label={`${t("hero.titulo", "Margarida Nail Artist")} — página inicial`}
+          aria-label={`${t("hero.titulo")} — página inicial`}
           className="flex items-center gap-3"
         >
           <img
-            src={t("hero.logo", "/logo.png")}
-            alt={`${t("hero.titulo", "Margarida")} — logótipo`}
+            src={t("hero.logo")}
+            alt={`${t("hero.titulo")} — logótipo`}
             aria-hidden="true"
             width="44"
             height="44"
@@ -54,9 +54,9 @@ export default function Navbar({ user, onLogin, onLogout }) {
             className="h-11 w-11 object-contain"
           />
           <span className="font-display text-[19px] font-bold text-navy leading-none italic">
-            {t("hero.titulo", "Margarida").split(" ")[0]}
+            {t("hero.titulo").split(" ")[0]}
             <span className="block text-[10px] font-sans font-bold tracking-[0.30em] text-maroon mt-0.5 uppercase not-italic">
-              {t("hero.subtitulo", "Nail Artist")}
+              {t("hero.subtitulo")}
             </span>
           </span>
         </button>

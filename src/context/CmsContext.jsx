@@ -9,8 +9,8 @@ export function CmsProvider({ children }) {
     { query: { refetchInterval: 60_000, staleTime: 55_000 } },
   )
 
-  function t(key, fallback = '') {
-    return cms?.[key] ?? fallback
+  function t(key) {
+    return cms?.[key] ?? ''
   }
 
   return (

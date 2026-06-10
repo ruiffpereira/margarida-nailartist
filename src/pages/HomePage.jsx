@@ -88,15 +88,15 @@ export default function HomePage() {
   const { t } = useCms();
 
   const stats = [
-    [t("hero.stat1.valor", "500+"), t("hero.stat1.label", "clientes")],
-    [t("hero.stat2.valor", "5★"),   t("hero.stat2.label", "avaliação")],
-    [t("hero.stat3.valor", "3+"),   t("hero.stat3.label", "anos")],
+    [t("hero.stat1.valor"), t("hero.stat1.label")],
+    [t("hero.stat2.valor"), t("hero.stat2.label")],
+    [t("hero.stat3.valor"), t("hero.stat3.label")],
   ];
 
   const socials = {
-    instagram: t("redes.instagram", "#"),
-    facebook:  t("redes.facebook", "#"),
-    whatsapp:  t("redes.whatsapp", "#"),
+    instagram: t("redes.instagram"),
+    facebook:  t("redes.facebook"),
+    whatsapp:  t("redes.whatsapp"),
   };
 
   return (
@@ -121,16 +121,16 @@ export default function HomePage() {
           <div className="relative max-w-[520px] self-center w-full">
 
             {/* Badge */}
-            <p aria-label={t("hero.badge", "Marcação online disponível")} className="gold-badge animate-fadeUp">
+            <p aria-label={t("hero.badge")} className="gold-badge animate-fadeUp">
               <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-maroon inline-block" />
-              {t("hero.badge", "Marcação online disponível")}
+              {t("hero.badge")}
             </p>
 
             {/* Heading principal */}
             <div className="flex items-center gap-5 mt-7 mb-5 animate-fadeUp [animation-delay:.06s]">
               <img
-                src={t("hero.logo", "/logo.png")}
-                alt={`${t("hero.titulo", "Margarida")} — logótipo`}
+                src={t("hero.logo")}
+                alt={`${t("hero.titulo")} — logótipo`}
                 width="88"
                 height="88"
                 loading="eager"
@@ -140,10 +140,10 @@ export default function HomePage() {
               />
               <div>
                 <h1 className="font-display text-[clamp(40px,5.5vw,66px)] font-bold leading-[1] tracking-tight text-navy italic">
-                  {t("hero.titulo", "Margarida").split(" ")[0]}
+                  {t("hero.titulo").split(" ")[0]}
                 </h1>
                 <p className="text-[clamp(10px,1.1vw,12px)] font-bold tracking-[0.36em] uppercase text-maroon mt-2 not-italic">
-                  {t("hero.subtitulo", "Nail Artist")}
+                  {t("hero.subtitulo")}
                 </p>
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3 mb-5 animate-fadeUp [animation-delay:.12s]">
               <span className="gold-rule" aria-hidden="true" />
               <p className="text-[clamp(14px,1.5vw,16px)] text-ink-soft leading-relaxed">
-                {t("hero.tagline", "Arte e cuidado em cada detalhe. Marca a tua visita online — em segundos, sem chamadas.")}
+                {t("hero.tagline")}
               </p>
             </div>
 
@@ -170,8 +170,8 @@ export default function HomePage() {
                     <PinIcon /> Morada
                   </div>
                   <p className="text-sm text-ink font-medium leading-snug">
-                    {t("contacto.morada1", "A preencher")}<br />
-                    {t("contacto.morada2", "Localidade")}
+                    {t("contacto.morada1")}<br />
+                    {t("contacto.morada2")}
                   </p>
                 </div>
                 <div>
@@ -179,27 +179,27 @@ export default function HomePage() {
                     <ClockIcon /> Horário
                   </div>
                   <p className="text-sm text-ink font-medium leading-snug">
-                    <time>{t("contacto.horario.dias", "Seg–Sáb")}</time><br />
-                    <time>{t("contacto.horario.manha", "9h–12h")}</time> · <time>{t("contacto.horario.tarde", "13h–19h")}</time>
+                    <time>{t("contacto.horario.dias")}</time><br />
+                    <time>{t("contacto.horario.manha")}</time> · <time>{t("contacto.horario.tarde")}</time>
                   </p>
                 </div>
               </div>
               <div aria-hidden="true" className="h-px bg-line mb-4" />
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <a
-                  href={`tel:${t("contacto.telefone.href", "+351900000000")}`}
-                  aria-label={`Ligar para ${t("contacto.telefone", "+351 900 000 000")}`}
+                  href={`tel:${t("contacto.telefone.href")}`}
+                  aria-label={`Ligar para ${t("contacto.telefone")}`}
                   className="flex items-center gap-1.5 text-navy font-semibold text-sm"
                 >
-                  <PhoneIcon /> {t("contacto.telefone", "+351 900 000 000")}
+                  <PhoneIcon /> {t("contacto.telefone")}
                 </a>
                 <div className="flex gap-1.5" role="list" aria-label="Redes sociais">
                   {Object.entries(SOCIAL_PATHS).map(([name, d]) => (
                     <a
                       key={name}
                       role="listitem"
-                      href={socials[name.toLowerCase()] || "#"}
-                      aria-label={`${name} da ${t("hero.titulo", "Margarida")}`}
+                      href={socials[name.toLowerCase()]}
+                      aria-label={`${name} da ${t("hero.titulo")}`}
                       className="w-8 h-8 rounded-lg bg-cream-dark text-ink-soft flex items-center justify-center transition-colors hover:bg-navy hover:text-paper"
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">

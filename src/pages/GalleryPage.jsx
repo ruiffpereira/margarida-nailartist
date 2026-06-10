@@ -5,24 +5,24 @@ const NAIL_PLACEHOLDERS = ['💅', '✨', '💎', '🌸', '🌿', '🎀', '💜'
 export default function GalleryPage() {
   const { t } = useCms()
 
-  const photos = Array.from({ length: 9 }, (_, i) => t(`galeria.foto.${i + 1}`, ''))
+  const photos = Array.from({ length: 9 }, (_, i) => t(`galeria.foto.${i + 1}`))
 
   return (
     <main aria-label="Portfólio de trabalhos" className="px-5 sm:px-10 lg:px-16 py-10 lg:py-16 min-h-[calc(100vh-64px)] bg-cream">
       <div className="max-w-5xl mx-auto">
 
         <span aria-hidden="true" className="gold-badge mb-4 inline-flex">
-          {t('galeria.label', 'Portfólio')}
+          {t('galeria.label')}
         </span>
 
         <h1 className="font-display text-[clamp(32px,4.5vw,56px)] font-bold text-navy mb-3 leading-tight italic">
-          {t('galeria.titulo', 'Os meus trabalhos')}
+          {t('galeria.titulo')}
         </h1>
 
         <div className="flex items-center gap-3 mb-9">
           <span className="gold-rule" aria-hidden="true" />
           <p className="text-ink-soft text-base max-w-lg leading-relaxed">
-            {t('galeria.descricao', 'Alguns dos trabalhos mais recentes — nail art, gel, extensões e muito mais. As fotografias reais serão adicionadas em breve.')}
+            {t('galeria.descricao')}
           </p>
         </div>
 

@@ -38,14 +38,14 @@ export default function PwaInstallBanner() {
         <div className="flex items-center gap-3">
           <img
             src={t("hero.logo")}
-            alt="Margarida Nail Artist"
+            alt={t("hero.titulo")}
             width="40" height="40"
             loading="lazy" decoding="async"
             className="h-10 w-10 rounded-xl object-contain flex-shrink-0"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-bold leading-tight">Instalar a App</p>
-            <p className="text-[11px] text-paper/70 mt-0.5 leading-tight">Acesso rápido, sem abrir o browser.</p>
+            <p className="text-[13px] font-bold leading-tight">{t("pwa.titulo")}</p>
+            <p className="text-[11px] text-paper/70 mt-0.5 leading-tight">{t("pwa.subtitulo")}</p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <button
@@ -53,7 +53,7 @@ export default function PwaInstallBanner() {
               aria-expanded={pwa.isIos || !pwa.ready ? hint : undefined}
               className="bg-maroon text-paper text-xs font-semibold px-3 py-1.5 rounded-lg"
             >
-              {pwa.isIos ? "Como?" : "Instalar"}
+              {pwa.isIos ? t("pwa.como") : t("pwa.instalar")}
             </button>
             <button onClick={dismiss} aria-label="Fechar" className="text-paper/50 hover:text-paper text-lg leading-none px-1">
               <span aria-hidden="true">✕</span>
@@ -63,11 +63,7 @@ export default function PwaInstallBanner() {
 
         {hint && (
           <p className="text-[12px] text-paper/80 mt-3 leading-relaxed border-t border-paper/10 pt-3">
-            {pwa.isIos ? (
-              <>No Safari, toca em <strong className="text-paper">Partilhar</strong> ⎙ e depois em <strong className="text-paper">"Adicionar ao ecrã inicial"</strong>.</>
-            ) : (
-              <>Abre este site no <strong className="text-paper">Google Chrome</strong> e volta a tentar — o Chrome permite instalar a app directamente.</>
-            )}
+            {pwa.isIos ? t("pwa.ios.texto") : t("pwa.android.texto")}
           </p>
         )}
       </div>

@@ -1,7 +1,15 @@
 import { useState, useEffect, useLayoutEffect } from "react";
-import { Routes, Route, Navigate, Outlet, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AuthProvider, useAuth } from "./AuthContext.jsx";
+import { LanguageProvider } from "./context/LanguageContext.jsx";
 import { CmsProvider, useCms } from "./context/CmsContext.jsx";
 import Navbar from "./components/Navbar.jsx";
 import AuthModal from "./components/AuthModal.jsx";
@@ -22,7 +30,12 @@ const PAGE_PATHS = {
   about: "/sobre",
 };
 
-function Seo({ page, titleKey = "seo.titulo", descriptionKey = "seo.descricao", noindex = false }) {
+function Seo({
+  page,
+  titleKey = "seo.titulo",
+  descriptionKey = "seo.descricao",
+  noindex = false,
+}) {
   const { t } = useCms();
   const seoTitle = titleKey ? t(titleKey) : "";
   const seoDescription = descriptionKey ? t(descriptionKey) : "";
@@ -35,12 +48,16 @@ function Seo({ page, titleKey = "seo.titulo", descriptionKey = "seo.descricao", 
       {noindex && <meta name="robots" content="noindex, nofollow" />}
       {canonical && <link rel="canonical" href={canonical} />}
       {seoTitle && <meta property="og:title" content={seoTitle} />}
-      {seoDescription && <meta property="og:description" content={seoDescription} />}
+      {seoDescription && (
+        <meta property="og:description" content={seoDescription} />
+      )}
       {canonical && <meta property="og:url" content={canonical} />}
       <meta property="og:image" content={SHARE_IMAGE} />
       <meta name="twitter:card" content="summary" />
       {seoTitle && <meta name="twitter:title" content={seoTitle} />}
-      {seoDescription && <meta name="twitter:description" content={seoDescription} />}
+      {seoDescription && (
+        <meta name="twitter:description" content={seoDescription} />
+      )}
       <meta name="twitter:image" content={SHARE_IMAGE} />
     </Helmet>
   );
@@ -72,7 +89,7 @@ function ScrollToTop() {
 
 function Layout() {
   const { user, logout } = useAuth();
-  const { loading } = useCms();
+  const { loading, t } = useCms();
   const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
   const [resetToken, setResetToken] = useState(() =>
@@ -89,7 +106,9 @@ function Layout() {
 
   useEffect(() => {
     document.body.style.overflow = showAuth ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [showAuth]);
 
   function showToast(msg) {
@@ -99,7 +118,7 @@ function Layout() {
 
   function handleLogin(u) {
     setShowAuth(false);
-    showToast(`Bem-vinda, ${u.name.split(" ")[0]}!`);
+    showToast(`${t("app.bem_vinda")}, ${u.name.split(" ")[0]}!`);
   }
 
   async function handleLogout() {
@@ -112,7 +131,11 @@ function Layout() {
   return (
     <>
       <ScrollToTop />
-      <Navbar user={user} onLogin={() => setShowAuth(true)} onLogout={handleLogout} />
+      <Navbar
+        user={user}
+        onLogin={() => setShowAuth(true)}
+        onLogout={handleLogout}
+      />
 
       <div
         role="status"
@@ -131,7 +154,10 @@ function Layout() {
 
       {showAuth && (
         <AuthModal
-          onClose={() => { setShowAuth(false); setResetToken(null); }}
+          onClose={() => {
+            setShowAuth(false);
+            setResetToken(null);
+          }}
           onSuccess={handleLogin}
           resetToken={resetToken}
         />
@@ -153,7 +179,7 @@ function CmsLoading() {
         className="flex flex-col items-center gap-4 text-center animate-fadeIn"
       >
         <div className="flex items-center gap-3 text-sm font-semibold text-navy">
-          <Spinner dark /> A carregar...
+          <Spinner dark />
         </div>
       </div>
     </main>
@@ -170,9 +196,33 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<><Seo page="home" /><HomePage /></>} />
-        <Route path="/portfolio" element={<><Seo page="gallery" /><GalleryPage /></>} />
-        <Route path="/sobre" element={<><Seo page="about" /><AboutPage /></>} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Seo page="home" />
+              <HomePage />
+            </>
+          }
+        />
+        <Route
+          path="/portfolio"
+          element={
+            <>
+              <Seo page="gallery" />
+              <GalleryPage />
+            </>
+          }
+        />
+        <Route
+          path="/sobre"
+          element={
+            <>
+              <Seo page="about" />
+              <AboutPage />
+            </>
+          }
+        />
         <Route
           path="/dashboard"
           element={
@@ -182,11 +232,24 @@ function AppRoutes() {
             </>
           }
         />
-        <Route path="/reset-password" element={<><Seo noindex /><HomePage /></>} />
+        <Route
+          path="/reset-password"
+          element={
+            <>
+              <Seo noindex />
+              <HomePage />
+            </>
+          }
+        />
       </Route>
       <Route
         path="/cancelar/:token"
-        element={<><Seo noindex /><CancelPage /></>}
+        element={
+          <>
+            <Seo noindex />
+            <CancelPage />
+          </>
+        }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
@@ -196,9 +259,11 @@ function AppRoutes() {
 export default function App() {
   return (
     <AuthProvider>
-      <CmsProvider>
-        <AppRoutes />
-      </CmsProvider>
+      <LanguageProvider>
+        <CmsProvider>
+          <AppRoutes />
+        </CmsProvider>
+      </LanguageProvider>
     </AuthProvider>
   );
 }

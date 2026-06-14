@@ -14,9 +14,11 @@ import {
 } from "../servers/booking/index.ts";
 import { nextWorkdays, fmtDate, fmtShort } from "../utils.js";
 import { Button, Spinner, Label, Textarea } from "./ui.jsx";
+import { useCms } from "../context/CmsContext.jsx";
 
 export default function BookingWidget({ onRequireLogin, onBooked }) {
   const { user } = useAuth();
+  const { t } = useCms();
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -45,7 +47,7 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
         qc.invalidateQueries({ queryKey: getBookingMyAppointmentsQueryKey({ status: 'upcoming' }) });
         onBooked?.();
       },
-      onError: (e) => setErr(e.message || "Erro ao criar marcação. Tenta novamente."),
+      onError: (e) => setErr(e.message || t("booking.erro_criar")),
     },
   });
 
@@ -124,13 +126,13 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
         <div className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-3xl text-emerald-600">
           ✓
         </div>
-        <h3 className="text-xl font-bold text-navy mb-2 tracking-tight font-display">Marcação confirmada!</h3>
+        <h3 className="text-xl font-bold text-navy mb-2 tracking-tight font-display">{t("booking.confirmada_titulo")}</h3>
         <p className="text-ink-soft text-sm mb-1">{done.serviceName}</p>
         <p className="text-ink-soft text-sm mb-2">{fmtDate(done.date)} · {done.time}</p>
-        <p className="text-[12px] text-ink-faint mb-5">Receberás um email com os detalhes e link de cancelamento.</p>
+        <p className="text-[12px] text-ink-faint mb-5">{t("booking.confirmada_texto")}</p>
         <div className="flex flex-col gap-2">
-          <Button variant="primary" size="sm" onClick={() => navigate('/dashboard')}>Ver as minhas marcações</Button>
-          <Button variant="ghost" size="sm" onClick={reset}>Nova marcação</Button>
+          <Button variant="primary" size="sm" onClick={() => navigate('/dashboard')}>{t("booking.ver_marcacoes")}</Button>
+          <Button variant="ghost" size="sm" onClick={reset}>{t("booking.nova_marcacao")}</Button>
         </div>
       </div>
     );
@@ -150,9 +152,9 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
           </div>
         ))}
         <span className="ml-2.5 text-xs text-ink-faint font-medium">
-          {step === 1 && "Serviço"}
-          {step === 2 && "Data & hora"}
-          {step === 3 && "Confirmar"}
+          {step === 1 && t("booking.step.servico")}
+          {step === 2 && t("booking.step.data_hora")}
+          {step === 3 && t("booking.step.confirmar")}
         </span>
       </div>
 
@@ -184,7 +186,7 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className={`font-semibold text-sm ${active ? "text-paper" : "text-ink"}`}>{s.name}</div>
-                        <div className={`text-xs mt-0.5 ${active ? "text-paper/70" : "text-ink-faint"}`}>{s.duration} min</div>
+                        <div className={`text-xs mt-0.5 ${active ? "text-paper/70" : "text-ink-faint"}`}>{s.duration} {t("booking.minuto")}</div>
                       </div>
                       <div className={`font-bold text-[15px] shrink-0 ${active ? "text-paper" : "text-maroon"}`}>€{s.price}</div>
                     </button>
@@ -193,7 +195,7 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
             </div>
           )}
           <Button variant="primary" disabled={!svc} onClick={next} className="w-full mt-4">
-            Continuar →
+            {t("booking.continuar")} →
           </Button>
         </div>
       )}
@@ -201,7 +203,7 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
       {/* Passo 2 — data e hora */}
       {step === 2 && (
         <div className="animate-fadeUp">
-          <Label>Data</Label>
+          <Label>{t("booking.data")}</Label>
           <div className="relative mt-2 mb-1">
             <div className="flex gap-1.5">
               {quickDays.map((d) => {
@@ -223,7 +225,7 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
 
               <button
                 onClick={() => { setCalMobile(window.innerWidth < 1024); setShowCalendar((c) => !c); }}
-                title="Escolher outra data"
+                title={t("booking.outra_data")}
                 className={`w-10 shrink-0 rounded-[10px] border-[1.5px] flex items-center justify-center transition-all
                   ${showCalendar || (!dateIsQuick && date)
                     ? "bg-navy border-navy text-paper"
@@ -266,14 +268,14 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
           </div>
 
           <div className="mt-3">
-            <Label>Hora disponível</Label>
+            <Label>{t("booking.hora_disponivel")}</Label>
             <div className="mt-2 max-h-[calc(100dvh-34rem)] overflow-y-auto md:h-[148px] md:max-h-none">
               {!date ? (
-                <p className="text-ink-faint text-[13px] p-3.5 text-center">Escolhe uma data primeiro.</p>
+                <p className="text-ink-faint text-[13px] p-3.5 text-center">{t("booking.escolhe_data")}</p>
               ) : loadingSlots ? (
                 <div className="flex justify-center py-4"><Spinner dark /></div>
               ) : free.length === 0 ? (
-                <p className="text-ink-faint text-[13px] p-3.5 text-center bg-cream rounded-[10px]">Sem horários disponíveis.</p>
+                <p className="text-ink-faint text-[13px] p-3.5 text-center bg-cream rounded-[10px]">{t("booking.sem_horarios")}</p>
               ) : (
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(68px,1fr))] gap-1.5 pr-0.5">
                   {free.map((sl) => (
@@ -292,8 +294,8 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
           </div>
 
           <div className="flex gap-2 mt-4">
-            <Button variant="ghost" onClick={back}>← Voltar</Button>
-            <Button variant="primary" disabled={!date || !slot} onClick={next} className="flex-1">Continuar →</Button>
+            <Button variant="ghost" onClick={back}>← {t("booking.voltar")}</Button>
+            <Button variant="primary" disabled={!date || !slot} onClick={next} className="flex-1">{t("booking.continuar")} →</Button>
           </div>
         </div>
       )}
@@ -303,20 +305,20 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
         <div className="animate-fadeUp">
           <div className="bg-cream rounded-[10px] p-4 border border-line mb-3.5">
             <div className="flex justify-between items-center mb-2.5">
-              <span className="text-[11px] text-ink-faint font-semibold tracking-wider uppercase">Resumo</span>
+              <span className="text-[11px] text-ink-faint font-semibold tracking-wider uppercase">{t("booking.resumo")}</span>
               <span className="text-lg font-bold text-maroon">€{svc.price}</span>
             </div>
             <div className="flex flex-col gap-1.5 text-[13.5px]">
-              <div><span className="text-ink-faint">Serviço:</span> <span className="text-ink font-medium">{svc.name}</span></div>
-              <div><span className="text-ink-faint">Data:</span> <span className="text-ink font-medium">{fmtDate(date)}</span></div>
-              <div><span className="text-ink-faint">Hora:</span> <span className="text-ink font-medium">{slot}</span></div>
-              <div><span className="text-ink-faint">Cliente:</span> <span className="text-ink font-medium">{user.name}</span></div>
+              <div><span className="text-ink-faint">{t("booking.servico_label")}</span> <span className="text-ink font-medium">{svc.name}</span></div>
+              <div><span className="text-ink-faint">{t("booking.data_label")}</span> <span className="text-ink font-medium">{fmtDate(date)}</span></div>
+              <div><span className="text-ink-faint">{t("booking.hora_label")}</span> <span className="text-ink font-medium">{slot}</span></div>
+              <div><span className="text-ink-faint">{t("booking.cliente_label")}</span> <span className="text-ink font-medium">{user.name}</span></div>
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5 mb-3.5">
-            <Label>Notas (opcional)</Label>
-            <Textarea placeholder="Algum pedido especial? (ex: cor preferida, comprimento…)" value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Label>{t("booking.notas")}</Label>
+            <Textarea placeholder={t("booking.notas_placeholder")} value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
 
           {err && (
@@ -324,9 +326,9 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
           )}
 
           <div className="flex gap-2">
-            <Button variant="ghost" onClick={back}>← Voltar</Button>
+            <Button variant="ghost" onClick={back}>← {t("booking.voltar")}</Button>
             <Button variant="primary" onClick={handleConfirm} disabled={confirmM.isPending} className="flex-1">
-              {confirmM.isPending ? <Spinner light /> : "Confirmar marcação"}
+              {confirmM.isPending ? <Spinner light /> : t("booking.confirmar_marcacao")}
             </Button>
           </div>
         </div>

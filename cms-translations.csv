@@ -1,0 +1,373 @@
+key,locale,value,type,section,parent
+hero.titulo,pt,Margarida Nails,text,Hero,Homepage
+hero.titulo,en,Margarida Nails,text,Hero,Homepage
+hero.subtitulo,pt,Nail Artist,text,Hero,Homepage
+hero.subtitulo,en,Nail Artist,text,Hero,Homepage
+hero.logo,pt,/logo.png,image,Hero,Homepage
+hero.badge,pt,A aceitar marcações · Braga,text,Hero,Homepage
+hero.badge,en,Taking bookings · Braga,text,Hero,Homepage
+hero.tagline,pt,Unhas perfeitas que realçam a tua beleza natural. Marca a tua sessão em segundos — sem complicações.,richtext,Hero,Homepage
+hero.tagline,en,Perfect nails that enhance your natural beauty. Book your session in seconds — hassle-free.,richtext,Hero,Homepage
+hero.stat1.valor,pt,5+,text,Hero,Homepage
+hero.stat1.label,pt,Anos de experiência,text,Hero,Homepage
+hero.stat1.label,en,Years of experience,text,Hero,Homepage
+hero.stat2.valor,pt,3k+,text,Hero,Homepage
+hero.stat2.label,pt,Clientes felizes,text,Hero,Homepage
+hero.stat2.label,en,Happy clients,text,Hero,Homepage
+hero.stat3.valor,pt,5.0,text,Hero,Homepage
+hero.stat3.label,pt,Estrelas em reviews,text,Hero,Homepage
+hero.stat3.label,en,Stars in reviews,text,Hero,Homepage
+contacto.morada1,pt,Rua das Flores 12,text,Contacto,Homepage
+contacto.morada2,pt,4700-000 Braga,text,Contacto,Homepage
+contacto.telefone,pt,+351 912 345 678,phone,Contacto,Homepage
+contacto.telefone.href,pt,+351912345678,phone,Contacto,Homepage
+contacto.horario.dias,pt,Ter–Sáb,text,Contacto,Homepage
+contacto.horario.dias,en,Tue–Sat,text,Contacto,Homepage
+contacto.horario.manha,pt,10h–13h,text,Contacto,Homepage
+contacto.horario.manha,en,10am–1pm,text,Contacto,Homepage
+contacto.horario.tarde,pt,14h30–19h30,text,Contacto,Homepage
+contacto.horario.tarde,en,2:30pm–7:30pm,text,Contacto,Homepage
+contacto.mapa_url,pt,https://www.google.com/maps/search/?api=1&query=Rua+das+Flores+12+4700-000+Braga,url,Contacto,Homepage
+redes.instagram,pt,#,url,Redes Sociais,Homepage
+redes.facebook,pt,#,url,Redes Sociais,Homepage
+redes.whatsapp,pt,#,url,Redes Sociais,Homepage
+sobre.label,pt,Sobre,text,Sobre,
+sobre.label,en,About,text,Sobre,
+sobre.titulo,pt,Paixão pela arte das unhas,text,Sobre,
+sobre.titulo,en,Passion for the art of nails,text,Sobre,
+sobre.corpo1,pt,A Margarida é nail artist com formação dedicada e um olhar atento ao detalhe. O estúdio em Braga nasceu com uma missão: cuidar de cada cliente como única.,richtext,Sobre,
+sobre.corpo1,en,Margarida is a nail artist with dedicated training and a keen eye for detail. The studio in Braga was born with one mission: to treat every client as unique.,richtext,Sobre,
+sobre.corpo2,pt,"Especialista em manicure, pedicure, verniz de gel e nail art — combinando higiene rigorosa com um acabamento impecável.",richtext,Sobre,
+sobre.corpo2,en,"Specialist in manicure, pedicure, gel polish and nail art — combining strict hygiene with a flawless finish.",richtext,Sobre,
+sobre.foto,pt,/logo.png,image,Sobre,
+sobre.especialidade.1,pt,Manicure,text,Sobre,
+sobre.especialidade.1,en,Manicure,text,Sobre,
+sobre.especialidade.2,pt,Pedicure,text,Sobre,
+sobre.especialidade.2,en,Pedicure,text,Sobre,
+sobre.especialidade.3,pt,Verniz de gel,text,Sobre,
+sobre.especialidade.3,en,Gel polish,text,Sobre,
+sobre.especialidade.4,pt,Nail art,text,Sobre,
+sobre.especialidade.4,en,Nail art,text,Sobre,
+sobre.especialidade.5,pt,Unhas de gel,text,Sobre,
+sobre.especialidade.5,en,Gel nails,text,Sobre,
+sobre.especialidade.6,pt,Acrílico,text,Sobre,
+sobre.especialidade.6,en,Acrylic,text,Sobre,
+galeria.label,pt,Portfólio,text,Galeria,
+galeria.label,en,Portfolio,text,Galeria,
+galeria.titulo,pt,Os nossos trabalhos,text,Galeria,
+galeria.titulo,en,Our work,text,Galeria,
+galeria.descricao,pt,Alguns dos trabalhos mais recentes feitos no estúdio. Fotografias reais adicionadas em breve.,richtext,Galeria,
+galeria.descricao,en,Some of the most recent work done in the studio. Real photos coming soon.,richtext,Galeria,
+galeria.foto.1,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.2,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.3,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.4,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.5,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.6,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.7,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.8,pt,/placeholder.jpg,image,Galeria,
+galeria.foto.9,pt,/placeholder.jpg,image,Galeria,
+seo.titulo,pt,Margarida Nails · Estúdio de Unhas em Braga,text,SEO,
+seo.titulo,en,Margarida Nails · Nail Studio in Braga,text,SEO,
+seo.descricao,pt,"Estúdio de unhas em Braga. Manicure, pedicure, verniz de gel e nail art. Marca a tua sessão online em segundos.",richtext,SEO,
+seo.descricao,en,"Nail studio in Braga. Manicure, pedicure, gel polish and nail art. Book your session online in seconds.",richtext,SEO,
+galeria.foto.alt,pt,Trabalho,text,Galeria,
+galeria.foto.alt,en,Work,text,Galeria,
+galeria.em_breve,pt,Em breve,text,Galeria,
+galeria.em_breve,en,Coming soon,text,Galeria,
+sobre.foto_legenda,pt,Foto da Margarida,text,Sobre,
+sobre.foto_legenda,en,Margarida's photo,text,Sobre,
+sobre.especialidades_label,pt,Especialidades,text,Sobre,
+sobre.especialidades_label,en,Specialties,text,Sobre,
+nav.inicio,pt,Início,text,Navbar,UI
+nav.inicio,en,Home,text,Navbar,UI
+nav.portfolio,pt,Portfólio,text,Navbar,UI
+nav.portfolio,en,Portfolio,text,Navbar,UI
+nav.sobre,pt,Sobre,text,Navbar,UI
+nav.sobre,en,About,text,Navbar,UI
+nav.conta,pt,Conta,text,Navbar,UI
+nav.conta,en,Account,text,Navbar,UI
+nav.sair,pt,Sair,text,Navbar,UI
+nav.sair,en,Log out,text,Navbar,UI
+nav.entrar,pt,Entrar,text,Navbar,UI
+nav.entrar,en,Log in,text,Navbar,UI
+nav.instalar,pt,Instalar,text,Navbar,UI
+nav.instalar,en,Install,text,Navbar,UI
+home.contacto_horario,pt,Contacto & Horário,text,Hero,Homepage
+home.contacto_horario,en,Contact & Hours,text,Hero,Homepage
+home.morada,pt,Morada,text,Hero,Homepage
+home.morada,en,Address,text,Hero,Homepage
+home.horario,pt,Horário,text,Hero,Homepage
+home.horario,en,Hours,text,Hero,Homepage
+home.agendar,pt,Agendar visita,text,Hero,Homepage
+home.agendar,en,Book a visit,text,Hero,Homepage
+home.widget_titulo,pt,Marca a tua visita,text,Hero,Homepage
+home.widget_titulo,en,Book your visit,text,Hero,Homepage
+home.widget_subtitulo,pt,em 3 passos simples,text,Hero,Homepage
+home.widget_subtitulo,en,in 3 simple steps,text,Hero,Homepage
+booking.step.servico,pt,Serviço,text,Marcação,UI
+booking.step.servico,en,Service,text,Marcação,UI
+booking.step.data_hora,pt,Data & hora,text,Marcação,UI
+booking.step.data_hora,en,Date & time,text,Marcação,UI
+booking.step.confirmar,pt,Confirmar,text,Marcação,UI
+booking.step.confirmar,en,Confirm,text,Marcação,UI
+booking.continuar,pt,Continuar,text,Marcação,UI
+booking.continuar,en,Continue,text,Marcação,UI
+booking.voltar,pt,Voltar,text,Marcação,UI
+booking.voltar,en,Back,text,Marcação,UI
+booking.data,pt,Data,text,Marcação,UI
+booking.data,en,Date,text,Marcação,UI
+booking.hora_disponivel,pt,Hora disponível,text,Marcação,UI
+booking.hora_disponivel,en,Available time,text,Marcação,UI
+booking.escolhe_data,pt,Escolhe uma data primeiro.,text,Marcação,UI
+booking.escolhe_data,en,Choose a date first.,text,Marcação,UI
+booking.sem_horarios,pt,Sem horários disponíveis.,text,Marcação,UI
+booking.sem_horarios,en,No available times.,text,Marcação,UI
+booking.outra_data,pt,Escolher outra data,text,Marcação,UI
+booking.outra_data,en,Choose another date,text,Marcação,UI
+booking.resumo,pt,Resumo,text,Marcação,UI
+booking.resumo,en,Summary,text,Marcação,UI
+booking.servico_label,pt,Serviço:,text,Marcação,UI
+booking.servico_label,en,Service:,text,Marcação,UI
+booking.data_label,pt,Data:,text,Marcação,UI
+booking.data_label,en,Date:,text,Marcação,UI
+booking.hora_label,pt,Hora:,text,Marcação,UI
+booking.hora_label,en,Time:,text,Marcação,UI
+booking.cliente_label,pt,Cliente:,text,Marcação,UI
+booking.cliente_label,en,Client:,text,Marcação,UI
+booking.notas,pt,Notas (opcional),text,Marcação,UI
+booking.notas,en,Notes (optional),text,Marcação,UI
+booking.notas_placeholder,pt,"Algum pedido especial? (ex: cor preferida, comprimento…)",text,Marcação,UI
+booking.notas_placeholder,en,"Any special request? (e.g. preferred colour, length…)",text,Marcação,UI
+booking.confirmar_marcacao,pt,Confirmar marcação,text,Marcação,UI
+booking.confirmar_marcacao,en,Confirm booking,text,Marcação,UI
+booking.confirmada_titulo,pt,Marcação confirmada!,text,Marcação,UI
+booking.confirmada_titulo,en,Booking confirmed!,text,Marcação,UI
+booking.confirmada_texto,pt,Receberás um email com os detalhes e link de cancelamento.,text,Marcação,UI
+booking.confirmada_texto,en,You'll receive an email with the details and a cancellation link.,text,Marcação,UI
+booking.ver_marcacoes,pt,Ver as minhas marcações,text,Marcação,UI
+booking.ver_marcacoes,en,View my bookings,text,Marcação,UI
+booking.nova_marcacao,pt,Nova marcação,text,Marcação,UI
+booking.nova_marcacao,en,New booking,text,Marcação,UI
+booking.minuto,pt,min,text,Marcação,UI
+booking.minuto,en,min,text,Marcação,UI
+booking.erro_criar,pt,Erro ao criar marcação. Tenta novamente.,text,Marcação,UI
+booking.erro_criar,en,Couldn't create booking. Please try again.,text,Marcação,UI
+dashboard.pagina_inicial,pt,Página inicial,text,Conta,UI
+dashboard.pagina_inicial,en,Home,text,Conta,UI
+dashboard.ola,pt,Olá,text,Conta,UI
+dashboard.ola,en,Hi,text,Conta,UI
+dashboard.nova_marcacao,pt,Nova marcação,text,Conta,UI
+dashboard.nova_marcacao,en,New booking,text,Conta,UI
+dashboard.sair,pt,Sair,text,Conta,UI
+dashboard.sair,en,Log out,text,Conta,UI
+dashboard.proximas,pt,Próximas marcações,text,Conta,UI
+dashboard.proximas,en,Upcoming bookings,text,Conta,UI
+dashboard.nenhuma_agendada,pt,Nenhuma agendada.,text,Conta,UI
+dashboard.nenhuma_agendada,en,None scheduled.,text,Conta,UI
+dashboard.podes_cancelar,pt,Podes cancelar até à data.,text,Conta,UI
+dashboard.podes_cancelar,en,You can cancel up to the date.,text,Conta,UI
+dashboard.erro_carregar,pt,Erro ao carregar marcações:,text,Conta,UI
+dashboard.erro_carregar,en,Error loading bookings:,text,Conta,UI
+dashboard.sem_futuras,pt,Sem marcações futuras,text,Conta,UI
+dashboard.sem_futuras,en,No upcoming bookings,text,Conta,UI
+dashboard.marcar_agora,pt,Marcar agora,text,Conta,UI
+dashboard.marcar_agora,en,Book now,text,Conta,UI
+dashboard.historico,pt,Histórico,text,Conta,UI
+dashboard.historico,en,History,text,Conta,UI
+dashboard.marcacoes_sufixo,pt,marcação(ões),text,Conta,UI
+dashboard.marcacoes_sufixo,en,booking(s),text,Conta,UI
+dashboard.dados_conta,pt,Dados da conta,text,Conta,UI
+dashboard.dados_conta,en,Account details,text,Conta,UI
+dashboard.editar,pt,Editar,text,Conta,UI
+dashboard.editar,en,Edit,text,Conta,UI
+dashboard.cancelar,pt,Cancelar,text,Conta,UI
+dashboard.cancelar,en,Cancel,text,Conta,UI
+dashboard.perfil_atualizado,pt,Perfil actualizado com sucesso.,text,Conta,UI
+dashboard.perfil_atualizado,en,Profile updated successfully.,text,Conta,UI
+dashboard.guardar,pt,Guardar alterações,text,Conta,UI
+dashboard.guardar,en,Save changes,text,Conta,UI
+dashboard.a_guardar,pt,A guardar…,text,Conta,UI
+dashboard.a_guardar,en,Saving…,text,Conta,UI
+dashboard.cancelar_titulo,pt,Cancelar marcação,text,Conta,UI
+dashboard.cancelar_titulo,en,Cancel booking,text,Conta,UI
+dashboard.cancelar_confirma,pt,Tens a certeza? Esta ação não pode ser revertida.,text,Conta,UI
+dashboard.cancelar_confirma,en,Are you sure? This action can't be undone.,text,Conta,UI
+dashboard.sim_cancelar,pt,"Sim, cancelar",text,Conta,UI
+dashboard.sim_cancelar,en,"Yes, cancel",text,Conta,UI
+dashboard.a_cancelar,pt,A cancelar…,text,Conta,UI
+dashboard.a_cancelar,en,Cancelling…,text,Conta,UI
+dashboard.voltar,pt,Voltar,text,Conta,UI
+dashboard.voltar,en,Back,text,Conta,UI
+dashboard.erro_cancelar,pt,Erro ao cancelar,text,Conta,UI
+dashboard.erro_cancelar,en,Error cancelling,text,Conta,UI
+dashboard.erro_guardar,pt,Erro ao guardar. Tenta novamente.,text,Conta,UI
+dashboard.erro_guardar,en,Error saving. Please try again.,text,Conta,UI
+form.nome,pt,Nome,text,Formulário,UI
+form.nome,en,Name,text,Formulário,UI
+form.email,pt,Email,text,Formulário,UI
+form.email,en,Email,text,Formulário,UI
+form.telemovel,pt,Telemóvel,text,Formulário,UI
+form.telemovel,en,Phone,text,Formulário,UI
+form.nif,pt,NIF,text,Formulário,UI
+form.nif,en,Tax ID,text,Formulário,UI
+form.nome_completo,pt,Nome completo,text,Formulário,UI
+form.nome_completo,en,Full name,text,Formulário,UI
+form.nome_placeholder,pt,O teu nome,text,Formulário,UI
+form.nome_placeholder,en,Your name,text,Formulário,UI
+form.email_placeholder,pt,email@exemplo.com,text,Formulário,UI
+form.email_placeholder,en,email@example.com,text,Formulário,UI
+auth.titulo.login,pt,Bem-vinda de volta,text,Autenticação,UI
+auth.titulo.login,en,Welcome back,text,Autenticação,UI
+auth.titulo.register,pt,Criar conta,text,Autenticação,UI
+auth.titulo.register,en,Create account,text,Autenticação,UI
+auth.titulo.forgot,pt,Recuperar palavra-passe,text,Autenticação,UI
+auth.titulo.forgot,en,Recover password,text,Autenticação,UI
+auth.titulo.reset,pt,Nova palavra-passe,text,Autenticação,UI
+auth.titulo.reset,en,New password,text,Autenticação,UI
+auth.google,pt,Continuar com Google (brevemente),text,Autenticação,UI
+auth.google,en,Continue with Google (soon),text,Autenticação,UI
+auth.ou,pt,ou,text,Autenticação,UI
+auth.ou,en,or,text,Autenticação,UI
+auth.password,pt,Palavra-passe,text,Autenticação,UI
+auth.password,en,Password,text,Autenticação,UI
+auth.esqueceste,pt,Esqueceste?,text,Autenticação,UI
+auth.esqueceste,en,Forgot?,text,Autenticação,UI
+auth.entrar,pt,Entrar,text,Autenticação,UI
+auth.entrar,en,Log in,text,Autenticação,UI
+auth.a_processar,pt,A processar…,text,Autenticação,UI
+auth.a_processar,en,Processing…,text,Autenticação,UI
+auth.sem_conta,pt,Sem conta?,text,Autenticação,UI
+auth.sem_conta,en,No account?,text,Autenticação,UI
+auth.regista_te,pt,Regista-te,text,Autenticação,UI
+auth.regista_te,en,Sign up,text,Autenticação,UI
+auth.criar_conta,pt,Criar conta,text,Autenticação,UI
+auth.criar_conta,en,Create account,text,Autenticação,UI
+auth.ja_tens_conta,pt,Já tens conta?,text,Autenticação,UI
+auth.ja_tens_conta,en,Already have an account?,text,Autenticação,UI
+auth.entra,pt,Entra,text,Autenticação,UI
+auth.entra,en,Log in,text,Autenticação,UI
+auth.email_enviado,pt,Email enviado!,text,Autenticação,UI
+auth.email_enviado,en,Email sent!,text,Autenticação,UI
+auth.forgot_sent,pt,"Se o email existir, receberás um link para redefinir a palavra-passe. Verifica também o spam.",richtext,Autenticação,UI
+auth.forgot_sent,en,"If the email exists, you'll get a link to reset your password. Check your spam too.",richtext,Autenticação,UI
+auth.voltar_login,pt,Voltar ao login,text,Autenticação,UI
+auth.voltar_login,en,Back to login,text,Autenticação,UI
+auth.forgot_texto,pt,Introduz o teu email e enviamos um link para redefinires a palavra-passe.,richtext,Autenticação,UI
+auth.forgot_texto,en,Enter your email and we'll send you a link to reset your password.,richtext,Autenticação,UI
+auth.enviar_link,pt,Enviar link,text,Autenticação,UI
+auth.enviar_link,en,Send link,text,Autenticação,UI
+auth.a_enviar,pt,A enviar…,text,Autenticação,UI
+auth.a_enviar,en,Sending…,text,Autenticação,UI
+auth.password_alterada,pt,Palavra-passe alterada!,text,Autenticação,UI
+auth.password_alterada,en,Password changed!,text,Autenticação,UI
+auth.reset_done,pt,Já podes entrar com a tua nova palavra-passe.,richtext,Autenticação,UI
+auth.reset_done,en,You can now log in with your new password.,richtext,Autenticação,UI
+auth.reset_texto,pt,Escolhe uma nova palavra-passe com pelo menos 8 caracteres.,richtext,Autenticação,UI
+auth.reset_texto,en,Choose a new password with at least 8 characters.,richtext,Autenticação,UI
+auth.nova_password,pt,Nova palavra-passe,text,Autenticação,UI
+auth.nova_password,en,New password,text,Autenticação,UI
+auth.nova_password_placeholder,pt,Mínimo 8 caracteres,text,Autenticação,UI
+auth.nova_password_placeholder,en,At least 8 characters,text,Autenticação,UI
+auth.confirmar_password,pt,Confirmar palavra-passe,text,Autenticação,UI
+auth.confirmar_password,en,Confirm password,text,Autenticação,UI
+auth.confirmar_password_placeholder,pt,Repete a nova palavra-passe,text,Autenticação,UI
+auth.confirmar_password_placeholder,en,Repeat the new password,text,Autenticação,UI
+auth.guardar_password,pt,Guardar nova palavra-passe,text,Autenticação,UI
+auth.guardar_password,en,Save new password,text,Autenticação,UI
+auth.a_guardar,pt,A guardar…,text,Autenticação,UI
+auth.a_guardar,en,Saving…,text,Autenticação,UI
+auth.erro.credenciais,pt,Email ou palavra-passe incorretos.,text,Autenticação,UI
+auth.erro.credenciais,en,Incorrect email or password.,text,Autenticação,UI
+auth.erro.token,pt,Token inválido ou expirado. Pede um novo link.,text,Autenticação,UI
+auth.erro.token,en,Invalid or expired token. Request a new link.,text,Autenticação,UI
+auth.erro.email_existe,pt,Este email já está registado. Tenta entrar.,text,Autenticação,UI
+auth.erro.email_existe,en,This email is already registered. Try logging in.,text,Autenticação,UI
+auth.erro.dados,pt,Dados inválidos. Verifica os campos.,text,Autenticação,UI
+auth.erro.dados,en,Invalid data. Check the fields.,text,Autenticação,UI
+auth.erro.generico,pt,Ocorreu um erro. Tenta novamente.,text,Autenticação,UI
+auth.erro.generico,en,An error occurred. Please try again.,text,Autenticação,UI
+cancel.titulo,pt,Cancelar marcação,text,Cancelamento,UI
+cancel.titulo,en,Cancel booking,text,Cancelamento,UI
+cancel.a_carregar,pt,A carregar marcação…,text,Cancelamento,UI
+cancel.a_carregar,en,Loading booking…,text,Cancelamento,UI
+cancel.nao_encontrada,pt,Marcação não encontrada,text,Cancelamento,UI
+cancel.nao_encontrada,en,Booking not found,text,Cancelamento,UI
+cancel.link_invalido,pt,O link pode ser inválido ou já ter expirado.,text,Cancelamento,UI
+cancel.link_invalido,en,The link may be invalid or expired.,text,Cancelamento,UI
+cancel.ja_cancelada,pt,Esta marcação já foi cancelada.,text,Cancelamento,UI
+cancel.ja_cancelada,en,This booking has already been cancelled.,text,Cancelamento,UI
+cancel.ja_concluida,pt,Esta marcação já foi concluída.,text,Cancelamento,UI
+cancel.ja_concluida,en,This booking has already been completed.,text,Cancelamento,UI
+cancel.confirma,pt,Tens a certeza que queres cancelar esta marcação?,text,Cancelamento,UI
+cancel.confirma,en,Are you sure you want to cancel this booking?,text,Cancelamento,UI
+cancel.servico,pt,Serviço,text,Cancelamento,UI
+cancel.servico,en,Service,text,Cancelamento,UI
+cancel.data,pt,Data,text,Cancelamento,UI
+cancel.data,en,Date,text,Cancelamento,UI
+cancel.hora,pt,Hora,text,Cancelamento,UI
+cancel.hora,en,Time,text,Cancelamento,UI
+cancel.preco,pt,Preço,text,Cancelamento,UI
+cancel.preco,en,Price,text,Cancelamento,UI
+cancel.estado,pt,Estado,text,Cancelamento,UI
+cancel.estado,en,Status,text,Cancelamento,UI
+cancel.erro,pt,Não foi possível cancelar. Tenta novamente ou contacta-nos.,text,Cancelamento,UI
+cancel.erro,en,We couldn't cancel. Try again or contact us.,text,Cancelamento,UI
+cancel.confirmar,pt,Confirmar cancelamento,text,Cancelamento,UI
+cancel.confirmar,en,Confirm cancellation,text,Cancelamento,UI
+cancel.a_cancelar,pt,A cancelar…,text,Cancelamento,UI
+cancel.a_cancelar,en,Cancelling…,text,Cancelamento,UI
+cancel.cancelada,pt,Marcação cancelada,text,Cancelamento,UI
+cancel.cancelada,en,Booking cancelled,text,Cancelamento,UI
+cancel.sucesso,pt,Recebeste um email de confirmação. Esperamos ver-te em breve!,text,Cancelamento,UI
+cancel.sucesso,en,You've received a confirmation email. We hope to see you soon!,text,Cancelamento,UI
+status.pending,pt,Pendente,text,Estados,UI
+status.pending,en,Pending,text,Estados,UI
+status.confirmed,pt,Confirmada,text,Estados,UI
+status.confirmed,en,Confirmed,text,Estados,UI
+status.completed,pt,Concluída,text,Estados,UI
+status.completed,en,Completed,text,Estados,UI
+status.cancelled,pt,Cancelada,text,Estados,UI
+status.cancelled,en,Cancelled,text,Estados,UI
+card.editar,pt,Editar,text,Marcação,UI
+card.editar,en,Edit,text,Marcação,UI
+card.cancelar,pt,Cancelar,text,Marcação,UI
+card.cancelar,en,Cancel,text,Marcação,UI
+pwa.titulo,pt,Instalar a App,text,PWA,UI
+pwa.titulo,en,Install the App,text,PWA,UI
+pwa.subtitulo,pt,"Acesso rápido, sem abrir o browser.",text,PWA,UI
+pwa.subtitulo,en,"Quick access, no browser needed.",text,PWA,UI
+pwa.instalar,pt,Instalar,text,PWA,UI
+pwa.instalar,en,Install,text,PWA,UI
+pwa.como,pt,Como?,text,PWA,UI
+pwa.como,en,How?,text,PWA,UI
+pwa.ios.titulo,pt,Instalar no iPhone / iPad,text,PWA,UI
+pwa.ios.titulo,en,Install on iPhone / iPad,text,PWA,UI
+pwa.ios.texto,pt,"No Safari, toca em Partilhar e depois em ""Adicionar ao ecrã inicial"".",richtext,PWA,UI
+pwa.ios.texto,en,"In Safari, tap Share and then ""Add to Home Screen"".",richtext,PWA,UI
+pwa.android.texto,pt,Abre este site no Google Chrome e volta a tentar — o Chrome permite instalar a app directamente.,richtext,PWA,UI
+pwa.android.texto,en,Open this site in Google Chrome and try again — Chrome lets you install the app directly.,richtext,PWA,UI
+app.carregar,pt,A carregar...,text,Geral,UI
+app.carregar,en,Loading...,text,Geral,UI
+app.bem_vinda,pt,Bem-vinda,text,Geral,UI
+app.bem_vinda,en,Welcome,text,Geral,UI
+val.email_invalido,pt,Email inválido.,text,Validação,UI
+val.email_invalido,en,Invalid email.,text,Validação,UI
+val.password_obrigatoria,pt,A palavra-passe é obrigatória.,text,Validação,UI
+val.password_obrigatoria,en,Password is required.,text,Validação,UI
+val.nome_min,pt,O nome deve ter pelo menos 2 caracteres.,text,Validação,UI
+val.nome_min,en,Name must be at least 2 characters.,text,Validação,UI
+val.telemovel_min,pt,Telemóvel deve ter pelo menos 9 dígitos.,text,Validação,UI
+val.telemovel_min,en,Phone must be at least 9 digits.,text,Validação,UI
+val.password_min6,pt,A palavra-passe deve ter mínimo 6 caracteres.,text,Validação,UI
+val.password_min6,en,Password must be at least 6 characters.,text,Validação,UI
+val.password_min8,pt,A palavra-passe deve ter mínimo 8 caracteres.,text,Validação,UI
+val.password_min8,en,Password must be at least 8 characters.,text,Validação,UI
+val.confirma_password,pt,Confirma a nova palavra-passe.,text,Validação,UI
+val.confirma_password,en,Confirm the new password.,text,Validação,UI
+val.passwords_diferentes,pt,As palavras-passe não coincidem.,text,Validação,UI
+val.passwords_diferentes,en,Passwords don't match.,text,Validação,UI
+val.nif_invalido,pt,NIF deve ter exactamente 9 dígitos.,text,Validação,UI
+val.nif_invalido,en,Tax ID must be exactly 9 digits.,text,Validação,UI
+val.dados_invalidos,pt,Dados inválidos.,text,Validação,UI
+val.dados_invalidos,en,Invalid data.,text,Validação,UI

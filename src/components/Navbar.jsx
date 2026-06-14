@@ -3,11 +3,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "./ui.jsx";
 import { usePwaInstall } from "../hooks/usePwaInstall.js";
 import { useCms } from "../context/CmsContext.jsx";
+import LanguageSwitcher from "./LanguageSwitcher.jsx";
 
 const NAV = [
-  { label: "Início",     path: "/",          icon: HomeIcon },
-  { label: "Portfólio",  path: "/portfolio",  icon: GridIcon },
-  { label: "Sobre",      path: "/sobre",      icon: InfoIcon },
+  { key: "nav.inicio",    path: "/",          icon: HomeIcon },
+  { key: "nav.portfolio", path: "/portfolio", icon: GridIcon },
+  { key: "nav.sobre",     path: "/sobre",     icon: InfoIcon },
 ];
 
 export default function Navbar({ user, onLogin, onLogout }) {
@@ -63,7 +64,8 @@ export default function Navbar({ user, onLogin, onLogout }) {
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-7" role="list">
-          {NAV.map(({ label, path }) => (
+          <LanguageSwitcher />
+          {NAV.map(({ key, path }) => (
             <button
               key={path}
               role="listitem"
@@ -75,7 +77,7 @@ export default function Navbar({ user, onLogin, onLogout }) {
                   : "text-ink-soft font-medium hover:text-navy"
               }`}
             >
-              {label}
+              {t(key)}
               {isActive(path) && (
                 <span
                   aria-hidden="true"
@@ -87,21 +89,22 @@ export default function Navbar({ user, onLogin, onLogout }) {
           {user ? (
             <div className="flex gap-2">
               <Button variant="ghost" size="sm" onClick={() => go("/dashboard")} aria-current={isActive("/dashboard") ? "page" : undefined}>
-                Conta
+                {t("nav.conta")}
               </Button>
               <Button variant="surface" size="sm" onClick={onLogout}>
-                Sair
+                {t("nav.sair")}
               </Button>
             </div>
           ) : (
             <Button variant="primary" size="sm" onClick={onLogin}>
-              Entrar
+              {t("nav.entrar")}
             </Button>
           )}
         </div>
 
         {/* Mobile top right */}
-        <div className="lg:hidden">
+        <div className="lg:hidden flex items-center gap-2">
+          <LanguageSwitcher />
           {user ? (
             <button
               onClick={() => go("/dashboard")}
@@ -118,7 +121,7 @@ export default function Navbar({ user, onLogin, onLogout }) {
               aria-label="Entrar na conta"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy text-paper text-[13px] font-semibold"
             >
-              Entrar
+              {t("nav.entrar")}
             </button>
           )}
         </div>
@@ -130,18 +133,18 @@ export default function Navbar({ user, onLogin, onLogout }) {
         className="lg:hidden fixed bottom-0 left-0 right-0 z-[900] h-16
         bg-paper border-t border-line flex items-center justify-around px-2 safe-area-inset-bottom"
       >
-        {NAV.map(({ label, path, icon: Icon }) => (
+        {NAV.map(({ key, path, icon: Icon }) => (
           <button
             key={path}
             onClick={() => go(path)}
             aria-current={isActive(path) ? "page" : undefined}
-            aria-label={label}
+            aria-label={t(key)}
             className={`flex flex-col items-center gap-1 ${itemPad} py-2 rounded-xl transition-colors
               ${isActive(path) ? "text-navy" : "text-ink-faint"}`}
           >
             <Icon size={22} active={isActive(path)} aria-hidden="true" />
             <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">
-              {label}
+              {t(key)}
             </span>
           </button>
         ))}
@@ -155,16 +158,16 @@ export default function Navbar({ user, onLogin, onLogout }) {
               ${isActive("/dashboard") ? "text-navy" : "text-ink-faint"}`}
           >
             <UserIcon size={22} active={isActive("/dashboard")} aria-hidden="true" />
-            <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">Conta</span>
+            <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">{t("nav.conta")}</span>
           </button>
         ) : (
           <button
             onClick={onLogin}
-            aria-label="Entrar na conta"
+            aria-label={t("nav.entrar")}
             className={`flex flex-col items-center gap-1 ${itemPad} py-2 rounded-xl text-ink-faint transition-colors`}
           >
             <LoginIcon size={22} aria-hidden="true" />
-            <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">Entrar</span>
+            <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">{t("nav.entrar")}</span>
           </button>
         )}
 
@@ -178,7 +181,7 @@ export default function Navbar({ user, onLogin, onLogout }) {
                 ${pwa.ready || pwa.isIos ? "text-maroon" : "text-ink-faint"}`}
             >
               <InstallIcon size={22} aria-hidden="true" />
-              <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">Instalar</span>
+              <span className="text-[10px] font-semibold tracking-wide" aria-hidden="true">{t("nav.instalar")}</span>
             </button>
 
             {pwa.isIos && showIosHint && (
@@ -189,11 +192,9 @@ export default function Navbar({ user, onLogin, onLogout }) {
                   className="absolute bottom-[calc(100%+12px)] right-0 z-[910] w-64
                     bg-navy text-paper rounded-xl shadow-lift p-4 text-[13px] leading-relaxed"
                 >
-                  <p className="font-semibold mb-1.5">Instalar no iPhone / iPad</p>
+                  <p className="font-semibold mb-1.5">{t("pwa.ios.titulo")}</p>
                   <p className="text-paper/80">
-                    No Safari, toca em <strong className="text-paper">Partilhar</strong>{" "}
-                    <span aria-hidden="true">⎙</span> e depois em{" "}
-                    <strong className="text-paper">"Adicionar ao ecrã inicial"</strong>.
+                    {t("pwa.ios.texto")}
                   </p>
                   <div aria-hidden="true" className="absolute -bottom-2 right-5 w-4 h-2 overflow-hidden">
                     <div className="w-4 h-4 bg-navy rotate-45 -translate-y-2" />

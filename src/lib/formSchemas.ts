@@ -1,36 +1,38 @@
 import { z } from 'zod/v4'
 
-export const loginFormSchema = z.object({
-  email:    z.email('Email inválido.'),
-  password: z.string().min(1, 'A palavra-passe é obrigatória.'),
+type T = (key: string) => string
+
+export const loginFormSchema = (t: T) => z.object({
+  email:    z.email(t('val.email_invalido')),
+  password: z.string().min(1, t('val.password_obrigatoria')),
 })
 
-export const registerFormSchema = z.object({
-  name:     z.string().min(2, 'O nome deve ter pelo menos 2 caracteres.'),
-  email:    z.email('Email inválido.'),
-  phone:    z.string().min(9, 'Telemóvel deve ter pelo menos 9 dígitos.').or(z.literal('')).optional(),
-  password: z.string().min(6, 'A palavra-passe deve ter mínimo 6 caracteres.'),
+export const registerFormSchema = (t: T) => z.object({
+  name:     z.string().min(2, t('val.nome_min')),
+  email:    z.email(t('val.email_invalido')),
+  phone:    z.string().min(9, t('val.telemovel_min')).or(z.literal('')).optional(),
+  password: z.string().min(6, t('val.password_min6')),
 })
 
-export const forgotFormSchema = z.object({
-  email: z.email('Email inválido.'),
+export const forgotFormSchema = (t: T) => z.object({
+  email: z.email(t('val.email_invalido')),
 })
 
-export const resetFormSchema = z.object({
-  newPassword:     z.string().min(8, 'A palavra-passe deve ter mínimo 8 caracteres.'),
-  confirmPassword: z.string().min(1, 'Confirma a nova palavra-passe.'),
+export const resetFormSchema = (t: T) => z.object({
+  newPassword:     z.string().min(8, t('val.password_min8')),
+  confirmPassword: z.string().min(1, t('val.confirma_password')),
 }).refine(
   d => d.newPassword === d.confirmPassword,
-  { message: 'As palavras-passe não coincidem.', path: ['confirmPassword'] },
+  { message: t('val.passwords_diferentes'), path: ['confirmPassword'] },
 )
 
-export const profileFormSchema = z.object({
-  name:  z.string().min(2, 'O nome deve ter pelo menos 2 caracteres.'),
-  email: z.email('Email inválido.'),
-  phone: z.string().min(9, 'Telemóvel deve ter pelo menos 9 dígitos.'),
-  nif:   z.union([z.literal(''), z.string().regex(/^\d{9}$/, 'NIF deve ter exactamente 9 dígitos.')]).optional(),
+export const profileFormSchema = (t: T) => z.object({
+  name:  z.string().min(2, t('val.nome_min')),
+  email: z.email(t('val.email_invalido')),
+  phone: z.string().min(9, t('val.telemovel_min')),
+  nif:   z.union([z.literal(''), z.string().regex(/^\d{9}$/, t('val.nif_invalido'))]).optional(),
 })
 
-export function firstZodError(error: z.ZodError): string {
-  return error.issues[0]?.message ?? 'Dados inválidos.'
+export function firstZodError(error: z.ZodError, fallback = 'Dados inválidos.'): string {
+  return error.issues[0]?.message ?? fallback
 }

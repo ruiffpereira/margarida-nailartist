@@ -57,7 +57,7 @@ export default function AboutPage() {
                 className="w-32 h-32 object-contain opacity-80"
               />
               <span aria-hidden="true" className="text-[11px] text-ink-faint tracking-[0.15em] uppercase">
-                Foto da Margarida
+                {t("sobre.foto_legenda")}
               </span>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
           </p>
 
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-ink-faint mb-3">
-            Especialidades
+            {t("sobre.especialidades_label")}
           </p>
           <ul aria-label="Especialidades" className="flex gap-2.5 flex-wrap list-none p-0 m-0">
             {especialidades.map((esp) => (

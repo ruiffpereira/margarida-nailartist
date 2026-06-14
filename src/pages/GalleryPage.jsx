@@ -38,7 +38,7 @@ export default function GalleryPage() {
               {src ? (
                 <img
                   src={src}
-                  alt={`Trabalho ${i + 1}`}
+                  alt={`${t('galeria.foto.alt')} ${i + 1}`}
                   width="1000"
                   height="1200"
                   loading="lazy"
@@ -54,7 +54,7 @@ export default function GalleryPage() {
                   aria-label={`Fotografia ${i + 1} — em breve`}
                 >
                   <span aria-hidden="true" className="text-3xl opacity-50">{NAIL_PLACEHOLDERS[i % NAIL_PLACEHOLDERS.length]}</span>
-                  <span aria-hidden="true" className="text-[10px] font-semibold tracking-[0.12em] uppercase opacity-40">Em breve</span>
+                  <span aria-hidden="true" className="text-[10px] font-semibold tracking-[0.12em] uppercase opacity-40">{t('galeria.em_breve')}</span>
                 </div>
               )}
             </li>

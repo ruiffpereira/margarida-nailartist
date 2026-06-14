@@ -1,14 +1,16 @@
 import { fmtDate } from '../utils.js'
 import { Button } from './ui.jsx'
+import { useCms } from '../context/CmsContext.jsx'
 
 const STATUS = {
-  confirmed: { label: 'Confirmado', cls: 'bg-emerald-500/15 text-emerald-700' },
-  cancelled: { label: 'Cancelado',  cls: 'bg-maroon/10 text-maroon' },
-  pending:   { label: 'Pendente',   cls: 'bg-amber-500/12 text-amber-700' },
-  completed: { label: 'Concluído',  cls: 'bg-navy/8 text-ink-soft' },
+  confirmed: { key: 'status.confirmed', cls: 'bg-emerald-500/15 text-emerald-700' },
+  cancelled: { key: 'status.cancelled', cls: 'bg-maroon/10 text-maroon' },
+  pending:   { key: 'status.pending',   cls: 'bg-amber-500/12 text-amber-700' },
+  completed: { key: 'status.completed', cls: 'bg-navy/8 text-ink-soft' },
 }
 
 export default function BookingCard({ booking: b, isPast, onEdit, onCancel }) {
+  const { t } = useCms()
   const cancelled = b.status === 'cancelled'
   const st = STATUS[b.status] || STATUS.confirmed
 
@@ -23,7 +25,7 @@ export default function BookingCard({ booking: b, isPast, onEdit, onCancel }) {
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <span className="font-semibold text-[15px] text-ink">{b.serviceName}</span>
             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase ${st.cls}`}>
-              {st.label}
+              {t(st.key)}
             </span>
           </div>
           <p className="text-ink-soft text-[13px] mb-0.5">{fmtDate(b.date)} · {b.time}</p>
@@ -35,8 +37,8 @@ export default function BookingCard({ booking: b, isPast, onEdit, onCancel }) {
         <span className="text-maroon font-bold text-lg">€{b.servicePrice}</span>
         {!isPast && !cancelled && (
           <div className="flex gap-1.5">
-            {onEdit && <Button variant="ghost" size="sm" onClick={() => onEdit(b)}>Editar</Button>}
-            {onCancel && <Button variant="danger" size="sm" onClick={() => onCancel(b.id)}>Cancelar</Button>}
+            {onEdit && <Button variant="ghost" size="sm" onClick={() => onEdit(b)}>{t('card.editar')}</Button>}
+            {onCancel && <Button variant="danger" size="sm" onClick={() => onCancel(b.id)}>{t('card.cancelar')}</Button>}
           </div>
         )}
       </div>

@@ -351,6 +351,8 @@ app.carregar,pt,A carregar...,text,Geral,UI
 app.carregar,en,Loading...,text,Geral,UI
 app.bem_vinda,pt,Bem-vinda,text,Geral,UI
 app.bem_vinda,en,Welcome,text,Geral,UI
+app.a_mudar_lingua,pt,A mudar de língua…,text,Geral,UI
+app.a_mudar_lingua,en,Switching language…,text,Geral,UI
 val.email_invalido,pt,Email inválido.,text,Validação,UI
 val.email_invalido,en,Invalid email.,text,Validação,UI
 val.password_obrigatoria,pt,A palavra-passe é obrigatória.,text,Validação,UI

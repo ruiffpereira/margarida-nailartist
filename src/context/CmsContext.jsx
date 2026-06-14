@@ -2,13 +2,14 @@ import { createContext, useContext } from 'react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { useGetContent } from '../servers/booking/hooks/useGetContent.ts'
 import { useLanguage } from './LanguageContext.jsx'
+import { Spinner } from '../components/ui.jsx'
 
-const CmsContext = createContext({ t: () => '', loading: true })
+const CmsContext = createContext({ t: () => '', loading: true, switching: false })
 
 export function CmsProvider({ children }) {
   const { currentLang } = useLanguage()
 
-  const { data: cms, isLoading } = useGetContent(
+  const { data: cms, isLoading, isFetching, isPlaceholderData } = useGetContent(
     { locale: currentLang },
     {
       query: {
@@ -25,11 +26,26 @@ export function CmsProvider({ children }) {
     return cms?.[key] ?? ''
   }
 
-  // `isLoading` só é true no primeiro carregamento (sem dados em cache).
-  // Em trocas de língua, `cms` mantém os dados anteriores, por isso não bloqueia.
+  // `isPlaceholderData` só é true quando estamos a mostrar a língua anterior
+  // enquanto a nova carrega — ou seja, exactamente durante a troca de língua
+  // (não dispara nas refetches de fundo da mesma língua).
+  const switching = isPlaceholderData && isFetching
+
   return (
-    <CmsContext.Provider value={{ t, cms: cms ?? {}, loading: isLoading || !cms }}>
+    <CmsContext.Provider value={{ t, cms: cms ?? {}, loading: isLoading || !cms, switching }}>
       {children}
+      {switching && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] pointer-events-none"
+        >
+          <div className="flex items-center gap-2.5 bg-navy text-paper px-4 py-2.5 rounded-full text-[13px] font-medium shadow-lift animate-fadeUp">
+            <Spinner light />
+            {t('app.a_mudar_lingua') || 'A mudar de língua…'}
+          </div>
+        </div>
+      )}
     </CmsContext.Provider>
   )
 }

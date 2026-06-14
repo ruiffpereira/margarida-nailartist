@@ -21,9 +21,6 @@ import DashboardPage from "./pages/DashboardPage.jsx";
 import CancelPage from "./pages/CancelPage.jsx";
 import PwaInstallBanner from "./components/PwaInstallBanner.jsx";
 
-const SITE_URL = "https://margarida-nails.pt";
-const SHARE_IMAGE = `${SITE_URL}/pwa-512x512.png`;
-
 const PAGE_PATHS = {
   home: "/",
   gallery: "/portfolio",
@@ -39,7 +36,9 @@ function Seo({
   const { t } = useCms();
   const seoTitle = titleKey ? t(titleKey) : "";
   const seoDescription = descriptionKey ? t(descriptionKey) : "";
-  const canonical = page ? `${SITE_URL}${PAGE_PATHS[page]}` : null;
+  const siteUrl = t('site.url');
+  const ogImage = t('seo.og_image');
+  const canonical = page ? `${siteUrl}${PAGE_PATHS[page]}` : null;
 
   return (
     <Helmet>
@@ -52,13 +51,13 @@ function Seo({
         <meta property="og:description" content={seoDescription} />
       )}
       {canonical && <meta property="og:url" content={canonical} />}
-      <meta property="og:image" content={SHARE_IMAGE} />
+      {ogImage && <meta property="og:image" content={ogImage} />}
       <meta name="twitter:card" content="summary" />
       {seoTitle && <meta name="twitter:title" content={seoTitle} />}
       {seoDescription && (
         <meta name="twitter:description" content={seoDescription} />
       )}
-      <meta name="twitter:image" content={SHARE_IMAGE} />
+      {ogImage && <meta name="twitter:image" content={ogImage} />}
     </Helmet>
   );
 }

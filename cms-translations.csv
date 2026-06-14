@@ -373,3 +373,7 @@ val.nif_invalido,pt,NIF deve ter exactamente 9 dígitos.,text,Validação,UI
 val.nif_invalido,en,Tax ID must be exactly 9 digits.,text,Validação,UI
 val.dados_invalidos,pt,Dados inválidos.,text,Validação,UI
 val.dados_invalidos,en,Invalid data.,text,Validação,UI
+site.url,pt,https://margarida-nails.pt,url,SEO,
+site.url,en,https://margarida-nails.pt,url,SEO,
+seo.og_image,pt,https://margarida-nails.pt/pwa-512x512.png,image,SEO,
+seo.og_image,en,https://margarida-nails.pt/pwa-512x512.png,image,SEO,

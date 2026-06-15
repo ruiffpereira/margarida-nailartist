@@ -15,6 +15,7 @@ import {
 import { nextWorkdays, fmtDate, fmtShort } from "../utils.js";
 import { Button, Spinner, Label, Textarea } from "./ui.jsx";
 import { useCms } from "../context/CmsContext.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function BookingWidget({ onRequireLogin, onBooked }) {
   const { user } = useAuth();
@@ -28,11 +29,13 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
   const [notes, setNotes] = useState("");
   const [done, setDone] = useState(null);
   const [err, setErr] = useState("");
+  const { currentLang } = useLanguage();
 
-  const { data: services = [], isLoading: loadingServices } = useGetBookingServices(
-    {},
-    { query: { staleTime: 5 * 60 * 1000 } },
-  );
+  const { data: services = [], isLoading: loadingServices } =
+    useGetBookingServices(
+      { locale: currentLang },
+      { query: { staleTime: 5 * 60 * 1000 } },
+    );
 
   const { data: slotsData, isLoading: loadingSlots } = useGetBookingSlots(
     { date, serviceId: svc?.serviceId ?? "" },
@@ -43,8 +46,12 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
     mutation: {
       onSuccess: (result) => {
         setDone({ ...result, serviceName: svc.name });
-        qc.invalidateQueries({ queryKey: getBookingSlotsQueryKey({ date, serviceId: svc.serviceId }) });
-        qc.invalidateQueries({ queryKey: getBookingMyAppointmentsQueryKey({ status: 'upcoming' }) });
+        qc.invalidateQueries({
+          queryKey: getBookingSlotsQueryKey({ date, serviceId: svc.serviceId }),
+        });
+        qc.invalidateQueries({
+          queryKey: getBookingMyAppointmentsQueryKey({ status: "upcoming" }),
+        });
         onBooked?.();
       },
       onError: (e) => setErr(e.message || t("booking.erro_criar")),
@@ -65,14 +72,21 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
     if (!showCalendar) return;
     document.body.style.overflow = "hidden";
     function onMousedown(e) {
-      if (calendarRef.current && !calendarRef.current.contains(e.target)) setShowCalendar(false);
+      if (calendarRef.current && !calendarRef.current.contains(e.target))
+        setShowCalendar(false);
     }
     document.addEventListener("mousedown", onMousedown);
-    return () => { document.body.style.overflow = ""; document.removeEventListener("mousedown", onMousedown); };
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("mousedown", onMousedown);
+    };
   }, [showCalendar]);
 
   const tomorrow = useMemo(() => {
-    const d = new Date(); d.setDate(d.getDate() + 1); d.setHours(0, 0, 0, 0); return d;
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    d.setHours(0, 0, 0, 0);
+    return d;
   }, []);
 
   const quickDays = useMemo(() => nextWorkdays(3), []);
@@ -80,8 +94,16 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
   const dateIsQuick = quickDays.includes(date);
 
   function pickDate(d) {
-    setDate(d); setSlot(""); setShowCalendar(false);
-    if (svc?.serviceId) qc.invalidateQueries({ queryKey: getBookingSlotsQueryKey({ date: d, serviceId: svc.serviceId }) });
+    setDate(d);
+    setSlot("");
+    setShowCalendar(false);
+    if (svc?.serviceId)
+      qc.invalidateQueries({
+        queryKey: getBookingSlotsQueryKey({
+          date: d,
+          serviceId: svc.serviceId,
+        }),
+      });
   }
 
   function handleCalendarSelect(d) {
@@ -94,20 +116,27 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
   function next() {
     if (step === 1) {
       if (!svc) return;
-      if (!user) { onRequireLogin?.(); return; }
+      if (!user) {
+        onRequireLogin?.();
+        return;
+      }
     }
     if (step === 2 && (!date || !slot)) return;
     setStep((s) => s + 1);
   }
 
-  const back = () => { setStep((s) => Math.max(1, s - 1)); setErr(""); };
+  const back = () => {
+    setStep((s) => Math.max(1, s - 1));
+    setErr("");
+  };
 
   function handleConfirm() {
     setErr("");
     confirmM.mutate({
       data: {
         serviceId: svc.serviceId,
-        date, time: slot,
+        date,
+        time: slot,
         notes: notes || undefined,
         clientName: user.name,
         clientEmail: user.email,
@@ -117,7 +146,13 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
   }
 
   function reset() {
-    setStep(1); setSvc(null); setDate(""); setSlot(""); setNotes(""); setDone(null); setErr("");
+    setStep(1);
+    setSvc(null);
+    setDate("");
+    setSlot("");
+    setNotes("");
+    setDone(null);
+    setErr("");
   }
 
   if (done) {
@@ -126,13 +161,27 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
         <div className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-3xl text-emerald-600">
           ✓
         </div>
-        <h3 className="text-xl font-bold text-navy mb-2 tracking-tight font-display">{t("booking.confirmada_titulo")}</h3>
+        <h3 className="text-xl font-bold text-navy mb-2 tracking-tight font-display">
+          {t("booking.confirmada_titulo")}
+        </h3>
         <p className="text-ink-soft text-sm mb-1">{done.serviceName}</p>
-        <p className="text-ink-soft text-sm mb-2">{fmtDate(done.date)} · {done.time}</p>
-        <p className="text-[12px] text-ink-faint mb-5">{t("booking.confirmada_texto")}</p>
+        <p className="text-ink-soft text-sm mb-2">
+          {fmtDate(done.date)} · {done.time}
+        </p>
+        <p className="text-[12px] text-ink-faint mb-5">
+          {t("booking.confirmada_texto")}
+        </p>
         <div className="flex flex-col gap-2">
-          <Button variant="primary" size="sm" onClick={() => navigate('/dashboard')}>{t("booking.ver_marcacoes")}</Button>
-          <Button variant="ghost" size="sm" onClick={reset}>{t("booking.nova_marcacao")}</Button>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => navigate("/dashboard")}
+          >
+            {t("booking.ver_marcacoes")}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={reset}>
+            {t("booking.nova_marcacao")}
+          </Button>
         </div>
       </div>
     );
@@ -144,11 +193,17 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
       <div className="flex gap-1.5 mb-4 items-center">
         {[1, 2, 3].map((n) => (
           <div key={n} className="flex items-center gap-1.5">
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold transition-all
-              ${step >= n ? "bg-navy text-paper" : "bg-cream-dark text-ink-faint border-[1.5px] border-line"}`}>
+            <div
+              className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold transition-all
+              ${step >= n ? "bg-navy text-paper" : "bg-cream-dark text-ink-faint border-[1.5px] border-line"}`}
+            >
               {n}
             </div>
-            {n < 3 && <div className={`w-6 h-0.5 transition-colors ${step > n ? "bg-navy" : "bg-line"}`} />}
+            {n < 3 && (
+              <div
+                className={`w-6 h-0.5 transition-colors ${step > n ? "bg-navy" : "bg-line"}`}
+              />
+            )}
           </div>
         ))}
         <span className="ml-2.5 text-xs text-ink-faint font-medium">
@@ -162,7 +217,9 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
       {step === 1 && (
         <div className="animate-fadeUp">
           {loadingServices ? (
-            <div className="flex justify-center py-8"><Spinner dark /></div>
+            <div className="flex justify-center py-8">
+              <Spinner dark />
+            </div>
           ) : (
             <div className="flex flex-col gap-2 max-h-[calc(100dvh-26rem)] overflow-y-auto pr-1">
               {services
@@ -181,20 +238,39 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
                       className={`flex items-center gap-3 p-3 rounded-[10px] border-[1.5px] text-left w-full transition-all
                       ${active ? "bg-navy border-navy" : "bg-paper border-line hover:border-line-strong hover:bg-cream"}`}
                     >
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0 ${active ? "bg-paper/20" : "bg-cream-dark"}`}>
+                      <div
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0 ${active ? "bg-paper/20" : "bg-cream-dark"}`}
+                      >
                         💅
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className={`font-semibold text-sm ${active ? "text-paper" : "text-ink"}`}>{s.name}</div>
-                        <div className={`text-xs mt-0.5 ${active ? "text-paper/70" : "text-ink-faint"}`}>{s.duration} {t("booking.minuto")}</div>
+                        <div
+                          className={`font-semibold text-sm ${active ? "text-paper" : "text-ink"}`}
+                        >
+                          {s.name}
+                        </div>
+                        <div
+                          className={`text-xs mt-0.5 ${active ? "text-paper/70" : "text-ink-faint"}`}
+                        >
+                          {s.duration} {t("booking.minuto")}
+                        </div>
                       </div>
-                      <div className={`font-bold text-[15px] shrink-0 ${active ? "text-paper" : "text-maroon"}`}>€{s.price}</div>
+                      <div
+                        className={`font-bold text-[15px] shrink-0 ${active ? "text-paper" : "text-maroon"}`}
+                      >
+                        €{s.price}
+                      </div>
                     </button>
                   );
                 })}
             </div>
           )}
-          <Button variant="primary" disabled={!svc} onClick={next} className="w-full mt-4">
+          <Button
+            variant="primary"
+            disabled={!svc}
+            onClick={next}
+            className="w-full mt-4"
+          >
             {t("booking.continuar")} →
           </Button>
         </div>
@@ -216,23 +292,42 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
                     className={`flex-1 py-2 rounded-[10px] border-[1.5px] flex flex-col items-center gap-px transition-all
                       ${active ? "bg-navy border-navy text-paper" : "bg-paper border-line text-ink hover:border-line-strong"}`}
                   >
-                    <span className="text-[9px] font-semibold opacity-70 uppercase">{f.day}</span>
-                    <span className="text-base font-bold leading-none">{f.num}</span>
-                    <span className="text-[9px] font-semibold opacity-70 uppercase">{f.mon}</span>
+                    <span className="text-[9px] font-semibold opacity-70 uppercase">
+                      {f.day}
+                    </span>
+                    <span className="text-base font-bold leading-none">
+                      {f.num}
+                    </span>
+                    <span className="text-[9px] font-semibold opacity-70 uppercase">
+                      {f.mon}
+                    </span>
                   </button>
                 );
               })}
 
               <button
-                onClick={() => { setCalMobile(window.innerWidth < 1024); setShowCalendar((c) => !c); }}
+                onClick={() => {
+                  setCalMobile(window.innerWidth < 1024);
+                  setShowCalendar((c) => !c);
+                }}
                 title={t("booking.outra_data")}
                 className={`w-10 shrink-0 rounded-[10px] border-[1.5px] flex items-center justify-center transition-all
-                  ${showCalendar || (!dateIsQuick && date)
-                    ? "bg-navy border-navy text-paper"
-                    : "bg-paper border-line text-ink-soft hover:border-line-strong hover:text-navy"
+                  ${
+                    showCalendar || (!dateIsQuick && date)
+                      ? "bg-navy border-navy text-paper"
+                      : "bg-paper border-line text-ink-soft hover:border-line-strong hover:text-navy"
                   }`}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect x="3" y="4" width="18" height="18" rx="2" />
                   <line x1="16" y1="2" x2="16" y2="6" />
                   <line x1="8" y1="2" x2="8" y2="6" />
@@ -243,45 +338,86 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
 
             {date && !dateIsQuick && (
               <div className="mt-1.5 flex items-center gap-2">
-                <span className="text-[12px] font-medium text-navy">{fmtDate(date)}</span>
-                <button onClick={() => { setDate(""); setSlot(""); }} className="text-ink-faint hover:text-navy text-[11px]">✕</button>
+                <span className="text-[12px] font-medium text-navy">
+                  {fmtDate(date)}
+                </span>
+                <button
+                  onClick={() => {
+                    setDate("");
+                    setSlot("");
+                  }}
+                  className="text-ink-faint hover:text-navy text-[11px]"
+                >
+                  ✕
+                </button>
               </div>
             )}
 
-            {showCalendar && (calMobile ? (
-              createPortal(
-                <>
-                  <div className="fixed inset-0 z-[950] bg-navy/40 animate-fadeIn" onClick={() => setShowCalendar(false)} />
-                  <div ref={calendarRef} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[960] bg-paper border border-line rounded-xl2 shadow-lift p-3 animate-fadeIn">
-                    <DayPicker mode="single" locale={pt} selected={selectedDateObj} onSelect={handleCalendarSelect} fromDate={tomorrow}
-                      disabled={[{ before: tomorrow }, { dayOfWeek: [0] }]} />
-                  </div>
-                </>,
-                document.body,
-              )
-            ) : (
-              <div ref={calendarRef} className="absolute top-full right-0 z-20 mt-1.5 rounded-[10px] border border-line bg-paper shadow-lift p-2">
-                <DayPicker mode="single" locale={pt} selected={selectedDateObj} onSelect={handleCalendarSelect} fromDate={tomorrow}
-                  disabled={[{ before: tomorrow }, { dayOfWeek: [0] }]} />
-              </div>
-            ))}
+            {showCalendar &&
+              (calMobile ? (
+                createPortal(
+                  <>
+                    <div
+                      className="fixed inset-0 z-[950] bg-navy/40 animate-fadeIn"
+                      onClick={() => setShowCalendar(false)}
+                    />
+                    <div
+                      ref={calendarRef}
+                      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[960] bg-paper border border-line rounded-xl2 shadow-lift p-3 animate-fadeIn"
+                    >
+                      <DayPicker
+                        mode="single"
+                        locale={pt}
+                        selected={selectedDateObj}
+                        onSelect={handleCalendarSelect}
+                        fromDate={tomorrow}
+                        disabled={[{ before: tomorrow }, { dayOfWeek: [0] }]}
+                      />
+                    </div>
+                  </>,
+                  document.body,
+                )
+              ) : (
+                <div
+                  ref={calendarRef}
+                  className="absolute top-full right-0 z-20 mt-1.5 rounded-[10px] border border-line bg-paper shadow-lift p-2"
+                >
+                  <DayPicker
+                    mode="single"
+                    locale={pt}
+                    selected={selectedDateObj}
+                    onSelect={handleCalendarSelect}
+                    fromDate={tomorrow}
+                    disabled={[{ before: tomorrow }, { dayOfWeek: [0] }]}
+                  />
+                </div>
+              ))}
           </div>
 
           <div className="mt-3">
             <Label>{t("booking.hora_disponivel")}</Label>
             <div className="mt-2 max-h-[calc(100dvh-34rem)] overflow-y-auto md:h-[148px] md:max-h-none">
               {!date ? (
-                <p className="text-ink-faint text-[13px] p-3.5 text-center">{t("booking.escolhe_data")}</p>
+                <p className="text-ink-faint text-[13px] p-3.5 text-center">
+                  {t("booking.escolhe_data")}
+                </p>
               ) : loadingSlots ? (
-                <div className="flex justify-center py-4"><Spinner dark /></div>
+                <div className="flex justify-center py-4">
+                  <Spinner dark />
+                </div>
               ) : free.length === 0 ? (
-                <p className="text-ink-faint text-[13px] p-3.5 text-center bg-cream rounded-[10px]">{t("booking.sem_horarios")}</p>
+                <p className="text-ink-faint text-[13px] p-3.5 text-center bg-cream rounded-[10px]">
+                  {t("booking.sem_horarios")}
+                </p>
               ) : (
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(68px,1fr))] gap-1.5 pr-0.5">
                   {free.map((sl) => (
                     <button
                       key={sl}
-                      onClick={() => { setSlot(sl); setStep(3); }}
+                      onClick={() => {
+                        setSlot(sl);
+                        setStep(3);
+                      }}
                       className={`py-2.5 px-1 rounded-[10px] border-[1.5px] text-[13px] font-medium transition-all
                         ${slot === sl ? "bg-navy border-navy text-paper" : "bg-paper border-line text-ink hover:border-line-strong"}`}
                     >
@@ -294,8 +430,17 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
           </div>
 
           <div className="flex gap-2 mt-4">
-            <Button variant="ghost" onClick={back}>← {t("booking.voltar")}</Button>
-            <Button variant="primary" disabled={!date || !slot} onClick={next} className="flex-1">{t("booking.continuar")} →</Button>
+            <Button variant="ghost" onClick={back}>
+              ← {t("booking.voltar")}
+            </Button>
+            <Button
+              variant="primary"
+              disabled={!date || !slot}
+              onClick={next}
+              className="flex-1"
+            >
+              {t("booking.continuar")} →
+            </Button>
           </div>
         </div>
       )}
@@ -305,30 +450,71 @@ export default function BookingWidget({ onRequireLogin, onBooked }) {
         <div className="animate-fadeUp">
           <div className="bg-cream rounded-[10px] p-4 border border-line mb-3.5">
             <div className="flex justify-between items-center mb-2.5">
-              <span className="text-[11px] text-ink-faint font-semibold tracking-wider uppercase">{t("booking.resumo")}</span>
-              <span className="text-lg font-bold text-maroon">€{svc.price}</span>
+              <span className="text-[11px] text-ink-faint font-semibold tracking-wider uppercase">
+                {t("booking.resumo")}
+              </span>
+              <span className="text-lg font-bold text-maroon">
+                €{svc.price}
+              </span>
             </div>
             <div className="flex flex-col gap-1.5 text-[13.5px]">
-              <div><span className="text-ink-faint">{t("booking.servico_label")}</span> <span className="text-ink font-medium">{svc.name}</span></div>
-              <div><span className="text-ink-faint">{t("booking.data_label")}</span> <span className="text-ink font-medium">{fmtDate(date)}</span></div>
-              <div><span className="text-ink-faint">{t("booking.hora_label")}</span> <span className="text-ink font-medium">{slot}</span></div>
-              <div><span className="text-ink-faint">{t("booking.cliente_label")}</span> <span className="text-ink font-medium">{user.name}</span></div>
+              <div>
+                <span className="text-ink-faint">
+                  {t("booking.servico_label")}
+                </span>{" "}
+                <span className="text-ink font-medium">{svc.name}</span>
+              </div>
+              <div>
+                <span className="text-ink-faint">
+                  {t("booking.data_label")}
+                </span>{" "}
+                <span className="text-ink font-medium">{fmtDate(date)}</span>
+              </div>
+              <div>
+                <span className="text-ink-faint">
+                  {t("booking.hora_label")}
+                </span>{" "}
+                <span className="text-ink font-medium">{slot}</span>
+              </div>
+              <div>
+                <span className="text-ink-faint">
+                  {t("booking.cliente_label")}
+                </span>{" "}
+                <span className="text-ink font-medium">{user.name}</span>
+              </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5 mb-3.5">
             <Label>{t("booking.notas")}</Label>
-            <Textarea placeholder={t("booking.notas_placeholder")} value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Textarea
+              placeholder={t("booking.notas_placeholder")}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
           </div>
 
           {err && (
-            <div className="bg-maroon/[0.08] border border-maroon/25 rounded-[10px] px-3.5 py-2.5 text-maroon text-[13px] mb-3">{err}</div>
+            <div className="bg-maroon/[0.08] border border-maroon/25 rounded-[10px] px-3.5 py-2.5 text-maroon text-[13px] mb-3">
+              {err}
+            </div>
           )}
 
           <div className="flex gap-2">
-            <Button variant="ghost" onClick={back}>← {t("booking.voltar")}</Button>
-            <Button variant="primary" onClick={handleConfirm} disabled={confirmM.isPending} className="flex-1">
-              {confirmM.isPending ? <Spinner light /> : t("booking.confirmar_marcacao")}
+            <Button variant="ghost" onClick={back}>
+              ← {t("booking.voltar")}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleConfirm}
+              disabled={confirmM.isPending}
+              className="flex-1"
+            >
+              {confirmM.isPending ? (
+                <Spinner light />
+              ) : (
+                t("booking.confirmar_marcacao")
+              )}
             </Button>
           </div>
         </div>

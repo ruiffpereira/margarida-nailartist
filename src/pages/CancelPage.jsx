@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom'
 import { useGetBookingAppointmentByToken } from '../servers/booking/hooks/useGetBookingAppointmentByToken.ts'
 import { usePatchBookingAppointmentCancel } from '../servers/booking/hooks/usePatchBookingAppointmentCancel.ts'
 import { Button, Spinner } from '../components/ui.jsx'
-import { fmtDate } from '../utils.js'
+import { fmtDate, langToLocale } from '../utils.js'
 import { useCms } from '../context/CmsContext.jsx'
+import { useLanguage } from '../context/LanguageContext.jsx'
 
 export default function CancelPage() {
   const { token: cancelToken } = useParams()
   const { t } = useCms()
+  const { currentLang } = useLanguage()
+  const dateLocale = langToLocale(currentLang)
   const [done, setDone] = useState(false)
 
   const { data: appt, isLoading, isError } = useGetBookingAppointmentByToken(cancelToken)
@@ -59,7 +62,7 @@ export default function CancelPage() {
                   <p className="text-sm text-ink-soft mb-5">{t('cancel.confirma')}</p>
                   <div className="rounded-xl bg-cream border border-line p-4 space-y-2.5 mb-6">
                     <Row label={t('cancel.servico')} value={appt.service?.name ?? '—'} />
-                    <Row label={t('cancel.data')}    value={appt.date ? fmtDate(appt.date) : '—'} />
+                    <Row label={t('cancel.data')}    value={appt.date ? fmtDate(appt.date, dateLocale) : '—'} />
                     <Row label={t('cancel.hora')}    value={appt.time ?? '—'} />
                     {appt.service?.price != null && (
                       <Row label={t('cancel.preco')} value={`€${Number(appt.service.price).toFixed(2)}`} />
